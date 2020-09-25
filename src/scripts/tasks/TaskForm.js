@@ -2,7 +2,6 @@ import { TaskList } from "./TaskList.js"
 import { getTasks, useTasks, saveTask } from "./TaskProvider.js"
 
 const contentElement = document.querySelector(".taskContainer")
-const textAlertStatment = document.querySelector("#textForm--textAlert")
 const eventHub = document.querySelector(".container")
 
 eventHub.addEventListener("click", clickEvent => {

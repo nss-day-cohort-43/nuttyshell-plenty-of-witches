@@ -1,20 +1,25 @@
 import { getTasks, useTasks } from "./TaskProvider.js"
-import { TasksHTML } from "./Tasks.js"
+import { TasksHTML, CompletedTasks } from "./Tasks.js"
 
 // let tasks = [];
 
 export const TaskList = () => {
     getTasks().then(() => {
         const tasks = useTasks();
-        render(tasks)
+        renderTasks(tasks)
     })
 }
 
 let domElement = document.querySelector(".taskContainer")
 
-const render = (tasks) => {
+const renderTasks = (tasks) => {
     let HTMLRender = tasks.map((singleTask) => {
-        return TasksHTML(singleTask);
+      if (singleTask.taskStatus === true) {
+          return TasksHTML(singleTask);
+      } else {
+          return CompletedTasks(singleTask)
+      }
     })
     domElement.innerHTML += HTMLRender.join("")
 }
+
