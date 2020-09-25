@@ -5,15 +5,15 @@ map over an array and display all articles from Note.js
 import { getArticles, useArticles, deleteArticle } from "./ArticleProvider.js";
 import { ArticleHTMLConverter } from "./Article.js";
 
-const contentTarget = document.querySelector(".articleContainer")
+const contentTarget = document.querySelector(".articleListContainer")
 const eventHub = document.querySelector(".container")
 
 const render = (articles) => {
 
     contentTarget.innerHTML = articles.map((articleObject) => {
-        return articleObject.id === parseInt(articleObject.id)
-    })
-    return ArticleHTMLConverter(articleObject).join("");
+        // return articleObject.id === parseInt(articleObject.id)
+        return ArticleHTMLConverter(articleObject)
+    }).join("");
 }
 
 export const ArticleList = () => {

@@ -3,7 +3,7 @@ import { getArticles, useArticles, saveArticle } from "./ArticleProvider.js";
     A bunch of input boxes related to the note information
 */
 const eventHub = document.querySelector(".container");
-const contentTarget = document.querySelector(".articleContainer");
+const contentTarget = document.querySelector(".articleFormContainer");
 
 eventHub.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "saveArticle") {
@@ -14,6 +14,7 @@ eventHub.addEventListener("click", clickEvent => {
 
         if (articleTitle.value !== "0" && articleContent.value !== "0" && articleURL.value !== "0") {
             const newArticle = {
+                userId: sessionStorage.getItem('activeUser'),
                 newsTitle: articleTitle.value,
                 newsContent: articleContent.value,
                 newsURL: articleURL.value,
@@ -37,7 +38,7 @@ eventHub.addEventListener("click", clickEvent => {
 const render = () => {
     contentTarget.innerHTML = `
         <div class="newArticle">
-            <h2 class="articleFormHeading">NEWS ARTICLES</h2>
+            <h2 class="articleFormHeading">NEW ARTICLE</h2>
             <textarea id="articleForm--title" class="articleForm articleFormTitle" placeholder="[Title]"></textarea>
             <textarea id="articleForm--synopsis" class="articleForm articleFormSynopsis" placeholder="[Synopsis]"></textarea>
             <textarea id="articleForm--URL" class="articleForm articleFormURL" placeholder="[URL]"></textarea>

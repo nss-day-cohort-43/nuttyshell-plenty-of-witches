@@ -1,0 +1,29 @@
+.articleContainer {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    min-height: 300px;
+}
+
+.articleFormContainer {
+    padding: 1em;
+    border: 1px solid black;
+}
+
+.articleListContainer {
+    display: flex;
+    flex-flow: wrap;    
+    border: 1px solid black;
+}
+
+.article {
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid black;
+    align-self: flex-start;
+    /* flex-basis: 20%; */
+    height: 200px;
+    width: 300px;
+    overflow-wrap: break-word;
+}

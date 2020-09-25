@@ -1,6 +1,7 @@
 console.log('Plenty of Witches!');
 
 import { ArticleForm } from './articles/ArticleForm.js';
+import { ArticleList } from './articles/ArticleList.js';
 import { LoginForm } from './auth/LoginForm.js';
 import { RegisterForm } from './auth/RegisterForm.js';
 import { Nutshell } from './Nutshell.js';
@@ -16,3 +17,4 @@ import { Nutshell } from './Nutshell.js';
 LoginForm();
 RegisterForm();
 ArticleForm();
+ArticleList();

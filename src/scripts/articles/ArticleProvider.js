@@ -49,8 +49,8 @@ export const saveArticle = articleObj => {
 //get all articles
 //display articles
 
-export const deleteArticle = article => {
-    return fetch(`http://localhost:8088/articles/${article.id}`, {
+export const deleteArticle = articleId => {
+    return fetch(`http://localhost:8088/articles/${articleId}`, {
         method: "DELETE"
     })
         .then(getArticles)

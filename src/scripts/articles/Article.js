@@ -2,9 +2,6 @@
 Take articles made and prepare to display on website
 */
 
-const eventHub = document.querySelector(".container")
-
-
 export const ArticleHTMLConverter = (articleObject) => {
     return `
 		<section class="article">
@@ -16,10 +13,3 @@ export const ArticleHTMLConverter = (articleObject) => {
         </section>
     `
 }
-
-
-
-
-// News title
-// Synopsis
-// URL
