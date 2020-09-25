@@ -5,8 +5,7 @@ export const useMessages = () => messagesArray.slice();
 export const useUsers = () => usersArray.slice();
 
 const dispatchStateChangeEvent = () => {
-  const messageStateChangedEvent = new CustomEvent("messageStateChanged");
-  eventHub.dispatchEvent(messageStateChangedEvent);
+  eventHub.dispatchEvent(new CustomEvent("messageStateChanged"));
 };
 
 export const getMessages = () => {

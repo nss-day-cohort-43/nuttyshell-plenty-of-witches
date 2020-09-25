@@ -13,14 +13,19 @@ let messageArray = [];
 export const MessageList = () => {
   getMessages().then(() => {
     messageArray = useMessages();
-    render();
+    render(messageArray);
   });
 };
 
-const render = () => {
+eventHub.addEventListener("messageStateChanged", () => {
+  messageArray = useMessages();
+  render(messageArray);
+});
+
+const render = (theMessageArray) => {
   const contentTarget = document.getElementById("messageHistory");
   contentTarget.innerHTML = `
-  ${messageArray.map((message) => `${MessageHTML(message)}`).join("")}
+  ${theMessageArray.map((message) => `${MessageHTML(message)}`).join("")}
   `;
   //show bottom of scroll
   contentTarget.scrollTop = contentTarget.scrollHeight;
@@ -45,4 +50,16 @@ eventHub.addEventListener("click", (event) => {
       deleteMessage(messageId);
     }
   }
+});
+
+const checkedForUser = () => {
+  if (sessionStorage.getItem("activeUser") !== null) {
+    console.log("hi");
+  }
+};
+
+//render to show edit features if user is loged in
+eventHub.addEventListener("userAuthenticated", (event) => {
+  messageArray = useMessages();
+  render(messageArray);
 });
