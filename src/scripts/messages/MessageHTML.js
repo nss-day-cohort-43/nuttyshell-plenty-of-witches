@@ -7,11 +7,12 @@ export const MessageHTML = (messageObj) => {
   <a href="#"><div class="userIcon shadow">${messageObj.user.username}</div></a>
     <div class="messageText">${messageObj.message}</div>
     <div class="messageDetail">${deleteBtn(messageObj)}
-    <div>${new Date(messageObj.date * 1000).toLocaleString("en-US", {
-      weekday: "short",
-      hour: "numeric",
-      minute: "numeric",
-    })}</div>
+    <div class="messageTime"> ${new Date(messageObj.date).toLocaleString(
+      "en-US",
+      {
+        weekday: "short",
+      }
+    )} ${new Date(messageObj.date).toLocaleTimeString("en-US")}</div>
     </div>
   </div>
   </section>
