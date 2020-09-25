@@ -25,7 +25,7 @@ const deleteBtn = (theMessageObj) => {
     parseInt(theMessageObj.user.id) ===
     parseInt(sessionStorage.getItem("activeUser"))
   ) {
-    return `<button id="deleteMessageBtn--${theMessageObj.id}" class="deleteMessageBtn">Delete</button>`;
+    return `<button id="editMessageBtn--${theMessageObj.id}" class="editMessageBtn">Edit</button><button id="deleteMessageBtn--${theMessageObj.id}" class="deleteMessageBtn">Delete</button>`;
   } else {
     return "";
   }

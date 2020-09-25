@@ -35,3 +35,21 @@ export const deleteMessage = (messageId) => {
     .then(getMessages)
     .then(dispatchStateChangeEvent);
 };
+
+export const updateMessage = (messageObj, messageId) => {
+  return fetch(`http://localhost:8088/messages/${messageId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(entryObj),
+  })
+    .then(getMessages)
+    .then(dispatchStateChangeEvent);
+};
+
+export const getSingleMessage = (messageId) => {
+  return fetch(`http://localhost:8088/messages/${messageId}`).then((response) =>
+    response.json()
+  );
+};

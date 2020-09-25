@@ -52,11 +52,18 @@ eventHub.addEventListener("click", (event) => {
   }
 });
 
-const checkedForUser = () => {
-  if (sessionStorage.getItem("activeUser") !== null) {
-    console.log("hi");
+//edit list custom event
+eventHub.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id.startsWith("editMessageBtn--")) {
+    const [perfix, messageId] = clickEvent.target.id.split("--");
+    const customEvent = new CustomEvent("editMessageSelected", {
+      detail: {
+        messageId: messageId,
+      },
+    });
+    eventHub.dispatchEvent(customEvent);
   }
-};
+});
 
 //render to show edit features if user is loged in
 eventHub.addEventListener("userAuthenticated", (event) => {
