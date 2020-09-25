@@ -19,6 +19,7 @@ const render = () => {
   `;
 };
 
+//add message to list
 eventHub.addEventListener("postEntered", (event) => {
   const newMessageObj = {
     userId: event.detail.userId,
@@ -27,4 +28,12 @@ eventHub.addEventListener("postEntered", (event) => {
     date: event.detail.date,
   };
   saveMessage(newMessageObj);
+});
+
+//delete message from list
+eventHub.addEventListener("click", (event) => {
+  if (event.target.id.startsWith("deleteMessageBtn--")) {
+    const [prefix, messageId] = event.target.id.split("--");
+    console.log(messageId);
+  }
 });

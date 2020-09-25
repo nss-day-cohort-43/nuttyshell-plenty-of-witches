@@ -52,7 +52,7 @@ eventHub.addEventListener("click", (event) => {
         date: Date.now(),
       },
     });
-    // Dispatch event to event hub
+    // Dispatch event to event hub if logged in
     if (sessionStorage.getItem("activeUser") !== null) {
       eventHub.dispatchEvent(customEvent);
     }
