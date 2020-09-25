@@ -18,7 +18,9 @@ export const MessageModal = () => {
       <textarea id="message-textarea"></textarea>
       <div>
       <button class="closeMessage">Cancel</button>
+      <div id="modalButtonArea">
       <button id="postMessageBtn">Post</button>
+      </div>
       </div>
     </div>
   </div>
@@ -61,7 +63,7 @@ eventHub.addEventListener("click", (event) => {
   }
 });
 
-const directMessage = () => {
+export const directMessage = () => {
   //check the string for @
   const messageText = document.getElementById("message-textarea").value;
   const directMessageArray = messageText.split("@");
