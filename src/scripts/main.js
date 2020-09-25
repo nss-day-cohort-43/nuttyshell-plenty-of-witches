@@ -1,5 +1,6 @@
 import { LoginForm } from './auth/LoginForm.js';
 import { RegisterForm } from './auth/RegisterForm.js';
+import { getEvents, useEvents } from './events/EventDataProvider.js';
 import { Nutshell } from './Nutshell.js';
 
 /*
@@ -11,3 +12,10 @@ import { Nutshell } from './Nutshell.js';
 */
 LoginForm();
 RegisterForm();
+
+// let testArray = [];
+
+// getEvents().then((_) => {
+// 	testArray = useEvents();
+// 	console.log('this is the test array', testArray);
+// });
