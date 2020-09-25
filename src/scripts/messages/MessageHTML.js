@@ -3,11 +3,14 @@
 export const MessageHTML = (messageObj) => {
   return `
   <section id="messageCard--${messageObj.id}">
-  <div class="messageContent">
-    <div class="userIcon"><a href="#">${messageObj.user.username}</a></div>
-    <div>${messageObj.message}</div>
+  <div class="messageContent shadow">
+    <div class="userIcon shadow"><a href="#">${
+      messageObj.user.username
+    }</a></div>
+    <div class="messageText">${messageObj.message}</div>
+    <div class="messageDetail">${deleteBtn(messageObj)}
     <div>${messageObj.date}</div>
-    ${deleteBtn(messageObj)}
+    </div>
   </div>
   </section>
   `;
@@ -19,7 +22,7 @@ const deleteBtn = (theMessageObj) => {
     parseInt(theMessageObj.user.id) ===
     parseInt(sessionStorage.getItem("activeUser"))
   ) {
-    return `<button id="deleteMessageBtn--${theMessageObj.id}">Delete</button>`;
+    return `<button id="deleteMessageBtn--${theMessageObj.id}" class="deleteMessageBtn">Delete</button>`;
   } else {
     return "";
   }
