@@ -16,5 +16,5 @@ const render = (tasks) => {
     let HTMLRender = tasks.map((singleTask) => {
         return TasksHTML(singleTask);
     })
-    domElement.innerHTML = HTMLRender.join("")
+    domElement.innerHTML += HTMLRender.join("")
 }
