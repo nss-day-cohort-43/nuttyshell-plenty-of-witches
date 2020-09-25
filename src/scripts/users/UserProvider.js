@@ -1,3 +1,4 @@
+//get user informae from database
 export const useUsers = () => usersArray.slice();
 
 let usersArray = [];
