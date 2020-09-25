@@ -22,6 +22,7 @@ const render = () => {
   contentTarget.innerHTML = `
   ${messageArray.map((message) => `${MessageHTML(message)}`).join("")}
   `;
+  //show bottom of scroll
   contentTarget.scrollTop = contentTarget.scrollHeight;
 };
 

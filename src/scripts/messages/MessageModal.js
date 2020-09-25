@@ -1,6 +1,6 @@
 //display message modal
 
-import { getUsers, useUsers } from "./MessageProvider.js";
+import { getUsers, useUsers } from "../users/UserProvider.js";
 const eventHub = document.querySelector(".container");
 let userArray = [];
 

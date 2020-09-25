@@ -1,5 +1,4 @@
 let messagesArray = [];
-let usersArray = [];
 const eventHub = document.querySelector(".container");
 
 export const useMessages = () => messagesArray.slice();
@@ -15,14 +14,6 @@ export const getMessages = () => {
     .then((response) => response.json())
     .then((parsedMessages) => {
       messagesArray = parsedMessages;
-    });
-};
-
-export const getUsers = () => {
-  return fetch("http://localhost:8088/users")
-    .then((response) => response.json())
-    .then((parsedUsers) => {
-      usersArray = parsedUsers;
     });
 };
 
