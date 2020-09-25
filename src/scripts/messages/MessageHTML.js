@@ -1,3 +1,5 @@
+//html for message cards in message feed/chat
+
 export const MessageHTML = (messageObj) => {
   return `
   <section id="messageCard--${messageObj.id}">

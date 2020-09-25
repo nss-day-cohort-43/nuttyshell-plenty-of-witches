@@ -1,3 +1,5 @@
+//display message modal
+
 import { getUsers, useUsers } from "./MessageProvider.js";
 const eventHub = document.querySelector(".container");
 let userArray = [];
@@ -25,20 +27,34 @@ export const MessageModal = () => {
 
 eventHub.addEventListener("click", (event) => {
   const modal = document.querySelector(".modal");
-  if (event.target.id === "postMessageBtn") {
+  //open modal btn
+  if (event.target.id === "postBtn") {
     modal.style.display = "block";
   }
+  //cancel post btn
   if (event.target.classList.contains("closeMessage")) {
     modal.style.display = "none";
   }
+});
+
+//post button
+//collect information from modal
+eventHub.addEventListener("click", (event) => {
+  const modal = document.querySelector(".modal");
   if (event.target.id === "postMessageBtn") {
     const recipientArray = directMessage();
-    const newMessage = {
-      userId: sessionStorage.getItem("activeUser"),
-      message: document.getElementById("message-textarea").value,
-      recipientId: recipientArray,
-      date: Date.now(),
-    };
+    const customEvent = new CustomEvent("postEntered", {
+      detail: {
+        userId: sessionStorage.getItem("activeUser"),
+        message: document.getElementById("message-textarea").value,
+        recipientId: recipientArray,
+        date: Date.now(),
+      },
+    });
+    // Dispatch event to event hub
+    eventHub.dispatchEvent(customEvent);
+    modal.style.display = "none";
+    document.getElementById("message-textarea").value = "";
   }
 });
 
