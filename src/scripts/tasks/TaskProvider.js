@@ -11,3 +11,24 @@ export const getTasks = () => {
 export const useTasks = () => {
     return tasks.slice();
 }
+
+const eventHub = document.querySelector(".container");
+
+const dispatchStateChangeEvent = () => {
+    const taskStateChangedEvent = new CustomEvent("taskStateChanged")
+    eventHub.dispatchEvent(taskStateChangedEvent)
+}
+
+export const saveTask = (TaskObj) => {
+    return fetch("http://localhost:8088/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(TaskObj),
+    })
+      .then(() => {
+        return getTasks()
+      })
+      .then(dispatchStateChangeEvent);
+  };
