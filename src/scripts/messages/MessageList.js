@@ -26,5 +26,5 @@ eventHub.addEventListener("postEntered", (event) => {
     recipientId: event.detail.recipientId,
     date: event.detail.date,
   };
-  saveMessage(newMessageObj);
+  // saveMessage(newMessageObj);
 });

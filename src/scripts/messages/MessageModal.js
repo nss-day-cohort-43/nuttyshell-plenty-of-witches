@@ -47,7 +47,7 @@ eventHub.addEventListener("click", (event) => {
       detail: {
         userId: sessionStorage.getItem("activeUser"),
         message: document.getElementById("message-textarea").value,
-        recipientId: recipientArray,
+        recipientId: recipientArray[0],
         date: Date.now(),
       },
     });
