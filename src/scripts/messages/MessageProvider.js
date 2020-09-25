@@ -1,5 +1,14 @@
-export const useMessages = () => messagesArray.slice();
 let messagesArray = [];
+let usersArray = [];
+const eventHub = document.querySelector(".container");
+
+export const useMessages = () => messagesArray.slice();
+export const useUsers = () => usersArray.slice();
+
+const dispatchStateChangeEvent = () => {
+  const messageStateChangedEvent = new CustomEvent("messageStateChanged");
+  eventHub.dispatchEvent(messageStateChangedEvent);
+};
 
 export const getMessages = () => {
   return fetch(`http://localhost:8088/messages?_expand=user`)
@@ -9,13 +18,22 @@ export const getMessages = () => {
     });
 };
 
-let usersArray = [];
-export const useUsers = () => usersArray.slice();
-
 export const getUsers = () => {
   return fetch(`http://localhost:8088/users`)
     .then((response) => response.json())
     .then((parsedUsers) => {
       usersArray = parsedUsers;
     });
+};
+
+export const saveMessage = (message) => {
+  return fetch(`http://localhost:8088/messages`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(message),
+  })
+    .then(getMessages)
+    .then(dispatchStateChangeEvent);
 };

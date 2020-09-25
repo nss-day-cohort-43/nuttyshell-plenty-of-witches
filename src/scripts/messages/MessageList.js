@@ -1,6 +1,6 @@
 //render messages history inside message feed/chat
 import { MessageHTML } from "./MessageHTML.js";
-import { getMessages, useMessages } from "./MessageProvider.js";
+import { getMessages, useMessages, saveMessage } from "./MessageProvider.js";
 const eventHub = document.querySelector(".container");
 
 let messageArray = [];
@@ -26,5 +26,5 @@ eventHub.addEventListener("postEntered", (event) => {
     recipientId: event.detail.recipientId,
     date: event.detail.date,
   };
-  console.log(newMessageObj);
+  saveMessage(newMessageObj);
 });
