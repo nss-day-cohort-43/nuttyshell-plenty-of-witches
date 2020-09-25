@@ -1,6 +1,11 @@
 //render messages history inside message feed/chat
 import { MessageHTML } from "./MessageHTML.js";
-import { getMessages, useMessages, saveMessage } from "./MessageProvider.js";
+import {
+  getMessages,
+  useMessages,
+  saveMessage,
+  deleteMessage,
+} from "./MessageProvider.js";
 const eventHub = document.querySelector(".container");
 
 let messageArray = [];
@@ -34,6 +39,6 @@ eventHub.addEventListener("postEntered", (event) => {
 eventHub.addEventListener("click", (event) => {
   if (event.target.id.startsWith("deleteMessageBtn--")) {
     const [prefix, messageId] = event.target.id.split("--");
-    console.log(messageId);
+    deleteMessage(messageId);
   }
 });

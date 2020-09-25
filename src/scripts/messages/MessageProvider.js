@@ -11,7 +11,7 @@ const dispatchStateChangeEvent = () => {
 };
 
 export const getMessages = () => {
-  return fetch(`http://localhost:8088/messages?_expand=user`)
+  return fetch("http://localhost:8088/messages?_expand=user")
     .then((response) => response.json())
     .then((parsedMessages) => {
       messagesArray = parsedMessages;
@@ -19,7 +19,7 @@ export const getMessages = () => {
 };
 
 export const getUsers = () => {
-  return fetch(`http://localhost:8088/users`)
+  return fetch("http://localhost:8088/users")
     .then((response) => response.json())
     .then((parsedUsers) => {
       usersArray = parsedUsers;
@@ -27,12 +27,20 @@ export const getUsers = () => {
 };
 
 export const saveMessage = (message) => {
-  return fetch(`http://localhost:8088/messages`, {
+  return fetch("http://localhost:8088/messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(message),
+  })
+    .then(getMessages)
+    .then(dispatchStateChangeEvent);
+};
+
+export const deleteMessage = (messageId) => {
+  return fetch(`http://localhost:8088/messages/${messageId}`, {
+    method: "DELETE",
   })
     .then(getMessages)
     .then(dispatchStateChangeEvent);
