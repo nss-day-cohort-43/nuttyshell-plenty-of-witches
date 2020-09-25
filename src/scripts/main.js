@@ -1,6 +1,10 @@
+console.log('Plenty of Witches!');
+
+import { ArticleForm } from './articles/ArticleForm.js';
 import { LoginForm } from './auth/LoginForm.js';
 import { RegisterForm } from './auth/RegisterForm.js';
 import { Nutshell } from './Nutshell.js';
+
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -11,3 +15,4 @@ import { Nutshell } from './Nutshell.js';
 */
 LoginForm();
 RegisterForm();
+ArticleForm();
