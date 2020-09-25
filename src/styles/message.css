@@ -3,7 +3,7 @@
   min-height: 20em;
 }
 
-.message--history {
+#messageHistory {
   border: 2px solid black;
   min-height: 17em;
 }
@@ -22,6 +22,11 @@
 #message-textarea {
   width: 100%;
   min-height: 5em;
+}
+
+.messageContent {
+  display: flex;
+  border: 2px solid black;
 }
 
 /* Modal */

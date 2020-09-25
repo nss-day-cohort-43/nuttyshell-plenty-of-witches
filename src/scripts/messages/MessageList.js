@@ -1,4 +1,6 @@
+import { MessageHTML } from "./MessageHTML.js";
 import { getMessages, useMessages } from "./MessageProvider.js";
+
 let messageArray = [];
 
 export const MessageList = () => {
@@ -9,5 +11,8 @@ export const MessageList = () => {
 };
 
 const render = () => {
-  console.log(useMessages());
+  const contentTarget = document.getElementById("messageHistory");
+  contentTarget.innerHTML = `
+  ${messageArray.map((message) => `${MessageHTML(message)}`).join("")}
+  `;
 };

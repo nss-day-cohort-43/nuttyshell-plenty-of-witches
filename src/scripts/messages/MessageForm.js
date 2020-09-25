@@ -1,26 +1,28 @@
 const eventHub = document.querySelector(".container");
-const contentTarget = document.querySelector(".messageContainer");
 
 export const MessageForm = () => {
-  return (contentTarget.innerHTML = `
-  <div class="message--history"></div>
+  const contentTarget = document.querySelector(".messageContainer");
+  return (contentTarget.innerHTML = ` 
+  <section> 
+  <section id="messageHistory"></section>
   <div class="message--entry">
     <div class="message--input"></div>
-    <div>
-      <button id="postMessageBtn">Send</button>
-    </div>
+    <div><button id="postMessageBtn">Post</button></div>
   </div>
+
+
   <div class="modal">
-  <div class="modal-content">
-    <span class="close-btn closeMessage">&times;</span>
-    <h3>Add A Post</h3>
-    <input id="message-textarea"></input>
-    <div>
-    <button class="closeMessage">Cancel</button>
-    <button>Post</button>
+    <div class="modal-content">
+      <span class="close-btn closeMessage">&times;</span>
+      <h3>Add A Post</h3>
+      <input id="message-textarea"></input>
+      <div>
+      <button class="closeMessage">Cancel</button>
+      <button>Post</button>
+      </div>
     </div>
   </div>
-</div>
+  </section>
   `);
 };
 
