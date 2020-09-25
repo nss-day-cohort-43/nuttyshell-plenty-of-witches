@@ -17,3 +17,4 @@ export const useEvents = () => {
 };
 
 // We will need a saveEvents() - which will push the new user created event.
+export const saveEvent = (Event) => {};
