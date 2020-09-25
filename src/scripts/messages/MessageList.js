@@ -39,6 +39,8 @@ eventHub.addEventListener("postEntered", (event) => {
 eventHub.addEventListener("click", (event) => {
   if (event.target.id.startsWith("deleteMessageBtn--")) {
     const [prefix, messageId] = event.target.id.split("--");
-    deleteMessage(messageId);
+    if (confirm("Are you sure you want to delete this post")) {
+      deleteMessage(messageId);
+    }
   }
 });
