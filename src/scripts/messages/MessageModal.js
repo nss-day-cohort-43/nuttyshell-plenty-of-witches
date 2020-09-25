@@ -43,16 +43,19 @@ eventHub.addEventListener("click", (event) => {
   const modal = document.querySelector(".modal");
   if (event.target.id === "postMessageBtn") {
     const recipientArray = directMessage();
+
     const customEvent = new CustomEvent("postEntered", {
       detail: {
         userId: sessionStorage.getItem("activeUser"),
         message: document.getElementById("message-textarea").value,
-        recipientId: recipientArray[0],
+        recipientId: recipientArray,
         date: Date.now(),
       },
     });
     // Dispatch event to event hub
-    eventHub.dispatchEvent(customEvent);
+    if (sessionStorage.getItem("activeUser") !== null) {
+      eventHub.dispatchEvent(customEvent);
+    }
     modal.style.display = "none";
     document.getElementById("message-textarea").value = "";
   }
@@ -77,6 +80,6 @@ const directMessage = () => {
   if (recipients.length === 0) {
     return null;
   } else {
-    return recipients;
+    return recipients[0];
   }
 };
