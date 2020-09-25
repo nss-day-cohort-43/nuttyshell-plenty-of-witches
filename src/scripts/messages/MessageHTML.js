@@ -4,9 +4,7 @@ export const MessageHTML = (messageObj) => {
   return `
   <section id="messageCard--${messageObj.id}">
   <div class="messageContent shadow">
-    <div class="userIcon shadow"><a href="#">${
-      messageObj.user.username
-    }</a></div>
+  <a href="#"><div class="userIcon shadow">${messageObj.user.username}</div></a>
     <div class="messageText">${messageObj.message}</div>
     <div class="messageDetail">${deleteBtn(messageObj)}
     <div>${messageObj.date}</div>

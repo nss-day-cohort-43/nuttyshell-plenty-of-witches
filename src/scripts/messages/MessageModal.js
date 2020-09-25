@@ -15,7 +15,7 @@ export const MessageModal = () => {
     <div class="modal-content">
       <span class="close-btn closeMessage">&times;</span>
       <h3>Add A Post</h3>
-      <input id="message-textarea"></input>
+      <textarea id="message-textarea"></textarea>
       <div>
       <button class="closeMessage">Cancel</button>
       <button id="postMessageBtn">Post</button>

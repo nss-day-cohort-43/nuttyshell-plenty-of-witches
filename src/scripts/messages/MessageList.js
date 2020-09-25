@@ -22,6 +22,7 @@ const render = () => {
   contentTarget.innerHTML = `
   ${messageArray.map((message) => `${MessageHTML(message)}`).join("")}
   `;
+  contentTarget.scrollTop = contentTarget.scrollHeight;
 };
 
 //add message to list
