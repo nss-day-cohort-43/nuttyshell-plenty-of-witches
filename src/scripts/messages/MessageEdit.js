@@ -25,6 +25,7 @@ eventHub.addEventListener("editMessageSelected", (event) => {
 
 //update message with new information
 eventHub.addEventListener("click", (event) => {
+  const modal = document.querySelector(".modal");
   if (event.target.id === "editMessageBtn") {
     //make a replacement object
     const updatedMessage = {
@@ -34,5 +35,8 @@ eventHub.addEventListener("click", (event) => {
       date: Date.now(),
     };
     updateMessage(updatedMessage, messageId);
+    //close modal and clear text area
+    modal.style.display = "none";
+    document.getElementById("message-textarea").value = "";
   }
 });
