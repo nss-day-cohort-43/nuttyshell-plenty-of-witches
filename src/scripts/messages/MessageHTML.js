@@ -19,7 +19,7 @@ export const MessageHTML = (messageObj) => {
   `;
 };
 
-//add delete button to message card if logged in
+//add delete and edit button to message card if logged in
 const deleteBtn = (theMessageObj) => {
   if (
     parseInt(theMessageObj.user.id) ===

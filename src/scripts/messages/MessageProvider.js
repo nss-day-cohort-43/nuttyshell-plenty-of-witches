@@ -42,7 +42,7 @@ export const updateMessage = (messageObj, messageId) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(entryObj),
+    body: JSON.stringify(messageObj),
   })
     .then(getMessages)
     .then(dispatchStateChangeEvent);

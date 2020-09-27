@@ -6,10 +6,11 @@ import {
   saveMessage,
   deleteMessage,
 } from "./MessageProvider.js";
-const eventHub = document.querySelector(".container");
 
+const eventHub = document.querySelector(".container");
 let messageArray = [];
 
+//render list to page
 export const MessageList = () => {
   getMessages().then(() => {
     messageArray = useMessages();
@@ -17,6 +18,7 @@ export const MessageList = () => {
   });
 };
 
+//render list when information is changed
 eventHub.addEventListener("messageStateChanged", () => {
   messageArray = useMessages();
   render(messageArray);
@@ -31,7 +33,7 @@ const render = (theMessageArray) => {
   contentTarget.scrollTop = contentTarget.scrollHeight;
 };
 
-//add message to list
+//create a message obj to add to database
 eventHub.addEventListener("postEntered", (event) => {
   const newMessageObj = {
     userId: event.detail.userId,
