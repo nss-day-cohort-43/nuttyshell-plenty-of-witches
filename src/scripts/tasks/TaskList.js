@@ -20,6 +20,12 @@ const renderTasks = (tasks) => {
           return CompletedTasks(singleTask)
       }
     })
-    domElement.innerHTML += HTMLRender.join("")
+    domElement.innerHTML = HTMLRender.join("")
 }
 
+const eventHub = document.querySelector(".container");
+
+eventHub.addEventListener("taskStateChanged", () => {
+    const newTask = useTasks();
+    renderTasks(newTask)
+})

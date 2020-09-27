@@ -32,3 +32,17 @@ export const saveTask = (TaskObj) => {
       })
       .then(dispatchStateChangeEvent);
   };
+
+  export const editTask = (taskObj, taskId) => {
+    return fetch(`http://localhost:8088/tasks/${taskId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(taskObj)
+    })
+    .then(()=> {
+      return getTasks();
+    })
+    .then(dispatchStateChangeEvent)
+  }

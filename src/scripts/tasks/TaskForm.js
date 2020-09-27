@@ -1,13 +1,17 @@
 import { TaskList } from "./TaskList.js"
 import { getTasks, useTasks, saveTask } from "./TaskProvider.js"
 
-const contentElement = document.querySelector(".taskContainer")
+const contentElement = document.querySelector(".taskFormContainer")
 const eventHub = document.querySelector(".container")
 
 eventHub.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "taskForm--saveBtn") {
         const taskText = document.querySelector("#taskForm--text");
         const taskDue = document.querySelector("#taskForm--dueDate");
+        const clearTaskForm = () => {
+            taskText.value = "";
+            taskDue.value = "";
+        }
         
         if (taskText.value === "") {
             window.alert("please enter a task")
@@ -20,6 +24,7 @@ eventHub.addEventListener("click", clickEvent => {
                 date: Date.parse(taskDue.value)
             }
             saveTask(newTask)
+            clearTaskForm();
         }
     }
 })
