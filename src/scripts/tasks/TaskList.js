@@ -19,16 +19,26 @@ eventHub.addEventListener("taskStateChanged", () => {
 
 // shows modal on button click. functions for "Add New Task" & "View Completed Tasks" buttons
 eventHub.addEventListener("click", event => {
-    const modal = document.querySelector(".taskFormModal");
+    const newTaskModal = document.querySelector(".taskFormModal");
     let completedTaskDivs = document.querySelector(".completedTasksModal")
+
     if (event.target.id === "addNewTask--btn") {
+        // shows new task modal when "add new task" btn clicked
         console.log("add new task btn clicked!")
-        modal.style.display = "block";
+        newTaskModal.style.display = "block";
     } else if (event.target.id === "viewCompletedTasks") {
+        // shows completed tasks modal when "view completed tasks" btn clicked
         console.log("view completed tasks btn clicked!")
         completedTaskDivs.style.display = "block"
+    } else if (event.target.id === "newTaskClose") {
+        // closed new task modal
+        console.log("close new task modal button clicked!")
+        newTaskModal.style.display = "none"
+    } else if (event.target.id === "completedTaskClose") {
+        // closes completed tasks modal
+        console.log("close completed Task modal button clicked!")
+        completedTaskDivs.style.display = "none"
     }
-
 })
 
 
@@ -45,6 +55,7 @@ let domElement = document.querySelector(".taskContainer")
 
 */
 const renderTasks = (tasks) => {
+
     let HTMLCompletedRender = tasks.map((singleTask)=> { 
         if (singleTask.taskStatus === true) {
             return TasksHTML(singleTask)
@@ -60,7 +71,7 @@ const renderTasks = (tasks) => {
     domElement.innerHTML = `
     <section class="taskFormModal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" id="newTaskClose">&times;</span>
             <h3>Add A New Task:</h3>
             <textarea id="taskForm--text" placeholder="enter task here"></textarea><br>
             <p>complete by:</p>
@@ -75,7 +86,9 @@ const renderTasks = (tasks) => {
     `+
     HTMLRender.join("")
     + 
-    `<div class="completedTasksModal">hi! <div class="modal-content">`
+    `<div class="completedTasksModal">
+    <div class="modal-content">
+    <span class="close-btn" id="completedTaskClose">&times;</span>`
     +
     HTMLCompletedRender.join("")
     +

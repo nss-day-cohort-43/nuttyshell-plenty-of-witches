@@ -63,14 +63,16 @@ eventHub.addEventListener("click", event => {
 // the task form HTML representation that gets placed into modal once "Add New Task Button" is clicked. 
 const render = (taskArray) => {
     contentElement.innerHTML = `
-    <hr>
-        <section class="taskFormContainer">
+    <section class="taskFormModal">
+        <div class="modal-content">
+            <span class="close-btn" id="newTaskClose">&times;</span>
             <h3>Add A New Task:</h3>
             <textarea id="taskForm--text" placeholder="enter task here"></textarea><br>
             <p>complete by:</p>
             <input id="taskForm--dueDate" type="date" placeholder="Complete by..."></input>
             <button id="taskForm--saveBtn">Save Task</button>
             <div id="textForm--textAlert"></div>
+            </div>
             </section>
     `
 }
