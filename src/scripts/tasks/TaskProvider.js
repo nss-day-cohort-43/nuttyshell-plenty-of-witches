@@ -1,5 +1,6 @@
 let tasks = [];
 
+// gathers all tasks in the database 
 export const getTasks = () => {
     return fetch("http://localhost:8088/tasks")
     .then((response)=> response.json())
@@ -8,6 +9,7 @@ export const getTasks = () => {
     })
 }
 
+// provides all tasks from the database
 export const useTasks = () => {
     return tasks.slice();
 }
@@ -19,6 +21,7 @@ const dispatchStateChangeEvent = () => {
     eventHub.dispatchEvent(taskStateChangedEvent)
 }
 
+// when "save" button clicked in modal, the new task is posted into database & full list of tasks is rendered on page
 export const saveTask = (TaskObj) => {
     return fetch("http://localhost:8088/tasks", {
       method: "POST",
@@ -32,6 +35,7 @@ export const saveTask = (TaskObj) => {
       })
       .then(dispatchStateChangeEvent);
   };
+
 
   export const editTask = (taskObj, taskId) => {
     return fetch(`http://localhost:8088/tasks/${taskId}`, {
@@ -47,6 +51,8 @@ export const saveTask = (TaskObj) => {
     .then(dispatchStateChangeEvent)
   }
 
+
+  // returns a single task with the id passed into the function. 
   export const getSingleTask = (id) => {
     return fetch (`http://localhost:8088/tasks/${id}`)
     .then(response=>response.json)

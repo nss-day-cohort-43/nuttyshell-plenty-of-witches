@@ -1,3 +1,5 @@
+
+// renders tasks that are complete (taskStatus = true). includes unchecked box. 
 export const TasksHTML = (taskObj) => {
     return `
     <div class="completedTasks">
@@ -8,6 +10,7 @@ export const TasksHTML = (taskObj) => {
     `
 }
 
+// renders tasks that are incomplete (taskStatus = false). includes pre-checked box. 
 export const CompletedTasks = (taskObj) => {
     return `
     <div class="incompleteTasks">

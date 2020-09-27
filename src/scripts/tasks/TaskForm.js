@@ -4,6 +4,7 @@ import { getTasks, useTasks, saveTask, editTask, getSingleTask } from "./TaskPro
 const contentElement = document.querySelector(".taskContainer")
 const eventHub = document.querySelector(".container")
 
+// click event to save new task once task & due date have been filled out by the user. 
 eventHub.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "taskForm--saveBtn") {
         const taskText = document.querySelector("#taskForm--text");
@@ -29,6 +30,7 @@ eventHub.addEventListener("click", clickEvent => {
     }
 })
 
+// click event to mark task as complete or incomplete by using checkbox for that specific task. 
 eventHub.addEventListener("click", event => {
     if(event.target.id.startsWith("taskCheckbox")) {
         const [prefix, id, user, date, type] = event.target.id.split("--");
@@ -58,7 +60,7 @@ eventHub.addEventListener("click", event => {
 })
 
 
-
+// the task form HTML representation that gets placed into modal once "Add New Task Button" is clicked. 
 const render = (taskArray) => {
     contentElement.innerHTML = `
     <hr>
@@ -73,6 +75,7 @@ const render = (taskArray) => {
     `
 }
 
+// render the new task form on the dom & show FULL list once new task is entered into database by user. 
 export const TaskForm = () => {
     getTasks().then(()=> {
         render()
