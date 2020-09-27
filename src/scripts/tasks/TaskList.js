@@ -9,6 +9,30 @@ export const TaskList = () => {
     })
 }
 
+const eventHub = document.querySelector(".container");
+
+// when a new task is entered, immedietely renders on webpage. 
+eventHub.addEventListener("taskStateChanged", () => {
+    const newTask = useTasks();
+    renderTasks(newTask)
+})
+
+// shows modal on button click. functions for "Add New Task" & "View Completed Tasks" buttons
+eventHub.addEventListener("click", event => {
+    const modal = document.querySelector(".taskFormModal");
+    let completedTaskDivs = document.querySelector(".completedTasksModal")
+    if (event.target.id === "addNewTask--btn") {
+        console.log("add new task btn clicked!")
+        modal.style.display = "block";
+    } else if (event.target.id === "viewCompletedTasks") {
+        console.log("view completed tasks btn clicked!")
+        completedTaskDivs.style.display = "block"
+    }
+
+})
+
+
+
 let domElement = document.querySelector(".taskContainer")
 
 /* multi step function: 
@@ -62,24 +86,3 @@ const renderTasks = (tasks) => {
     </div>`
 }
 
-const eventHub = document.querySelector(".container");
-
-// when a new task is entered, immedietely renders on webpage. 
-eventHub.addEventListener("taskStateChanged", () => {
-    const newTask = useTasks();
-    renderTasks(newTask)
-})
-
-// shows modal on button click. functions for "Add New Task" & "View Completed Tasks" buttons
-eventHub.addEventListener("click", event => {
-    const modal = document.querySelector(".taskFormModal");
-    let completedTaskDivs = document.querySelector(".completedTasksModal")
-    if (event.target.id === "addNewTask--btn") {
-        console.log("add new task btn clicked!")
-        modal.style.display = "block";
-    } else if (event.target.id === "viewCompletedTasks") {
-        console.log("view completed tasks btn clicked!")
-        completedTaskDivs.style.display = "block"
-    }
-
-})
