@@ -23,6 +23,27 @@ p {
     padding: 0;
 }
 
-.completedTasks .taskName{
+.completedTask {
     text-decoration: line-through;
 }
+
+.incompleteTasks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.task--dueDate {
+    width: 100%;
+}
+
+.taskContainerButtons {
+    display: inline-block;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%
+}
+
+#addNewTask--btn {
+    align-self: end;
+}
+

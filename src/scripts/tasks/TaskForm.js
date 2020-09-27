@@ -32,21 +32,27 @@ eventHub.addEventListener("click", clickEvent => {
 eventHub.addEventListener("click", event => {
     console.log("a click happened!")
     if(event.target.id.startsWith("taskCheckbox")) {
-        const [prefix, id] = event.target.id.split("--");
+        const [prefix, id, user, date, type] = event.target.id.split("--");
         console.log("id: ", id)
         let task = getSingleTask(id)
-        .then(() => {
-            let newTask = {
-            name: task.name,
-            taskStatus: true,
-            date: task.date,
-            userId: task.userId
-        }})
-        .then(()=> {
-        console.log("task:", task)
-        console.log(newTask)
-        editTask(newTask, id)
-        })
+        
+        if (type === "incomplete") {
+            let updatedTask = {
+                userId: user,
+                name: document.querySelector(`#taskName--${id}`).innerHTML,
+                taskStatus: true,
+                date: parseInt(date)
+            }
+            editTask(updatedTask, id)
+        } else if (type === "complete") {
+            let updatedTask = {
+                userId: user,
+                name: document.querySelector(`#taskName--${id}`).innerHTML,
+                taskStatus: false,
+                date: parseInt(date)
+            }
+            editTask(updatedTask, id)
+        }
         
     }
 
@@ -65,7 +71,6 @@ const render = (taskArray) => {
             <button id="taskForm--saveBtn">Save Task</button>
             <div id="textForm--textAlert"></div>
             </section>
-            <h3>Task's To Complete:</h3>
     `
 }
 

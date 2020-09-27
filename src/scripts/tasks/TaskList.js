@@ -14,13 +14,22 @@ let domElement = document.querySelector(".taskContainer")
 
 const renderTasks = (tasks) => {
     let HTMLRender = tasks.map((singleTask) => {
-      if (singleTask.taskStatus === true) {
-          return TasksHTML(singleTask);
+      if (singleTask.taskStatus === false) {
+          return CompletedTasks(singleTask);
       } else {
-          return CompletedTasks(singleTask)
+          console.log("argh")
+        //   return CompletedTasks(singleTask)
       }
     })
-    domElement.innerHTML = HTMLRender.join("")
+    domElement.innerHTML = `
+    <h3> Tasks To Complete </h4>
+    `+
+    HTMLRender.join("")
+    + `
+    <div class="taskContainerButtons">
+    <button id="viewCompletedTasks">View Completed Tasks</button>
+    <button id="addNewTask--btn">Add New Task </button>
+    </div>`
 }
 
 const eventHub = document.querySelector(".container");
