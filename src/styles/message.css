@@ -58,6 +58,7 @@
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 .messageTime {
   color: #d3d3d3;
