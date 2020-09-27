@@ -60,6 +60,7 @@ const renderTasks = (tasks) => {
     domElement.innerHTML = `
     <section class="taskFormModal">
         <div class="modal-content">
+            <span class="close-btn">&times;</span>
             <h3>Add A New Task:</h3>
             <textarea id="taskForm--text" placeholder="enter task here"></textarea><br>
             <p>complete by:</p>
