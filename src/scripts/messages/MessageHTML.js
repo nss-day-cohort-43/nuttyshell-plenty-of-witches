@@ -4,7 +4,7 @@ export const MessageHTML = (messageObj) => {
   return `
   <section id="messageCard--${messageObj.id}">
   <div class="messageContent shadow">
-  <a href="#"><div class="userIcon shadow">${messageObj.user.username}</div></a>
+    ${userIcon(messageObj)}
     <div class="messageText">${messageObj.message}</div>
     <div class="messageDetail">${deleteBtn(messageObj)}
     <div class="messageTime"> ${new Date(messageObj.date).toLocaleString(
@@ -28,5 +28,17 @@ const deleteBtn = (theMessageObj) => {
     return `<button id="editMessageBtn--${theMessageObj.id}" class="editMessageBtn">Edit</button><button id="deleteMessageBtn--${theMessageObj.id}" class="deleteMessageBtn">Delete</button>`;
   } else {
     return "";
+  }
+};
+
+//add diaplsy user Icon with colors
+const userIcon = (theMessageObj) => {
+  if (
+    parseInt(theMessageObj.user.id) ===
+    parseInt(sessionStorage.getItem("activeUser"))
+  ) {
+    return ` <a href="#"><div class="userIcon shadow currentUserIcon">${theMessageObj.user.username}</div></a>`;
+  } else {
+    return `<a href="#"><div class="userIcon shadow otherUserIcon">${theMessageObj.user.username}</div></a>`;
   }
 };

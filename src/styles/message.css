@@ -35,6 +35,14 @@
   padding: 1em;
   margin-right: 2em;
   max-height: 1em;
+  color: white;
+}
+
+.currentUserIcon {
+  background-color: #fce205;
+}
+.otherUserIcon {
+  background-color: #c0c0c0;
 }
 
 .messageText {
