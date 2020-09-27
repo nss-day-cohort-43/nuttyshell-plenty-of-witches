@@ -50,16 +50,34 @@
   width: 70%;
 }
 
+.messageModalBtns {
+  display: flex;
+}
+
 .shadow {
   -moz-box-shadow: 3px 3px 5px 6px #ccc;
   -webkit-box-shadow: 3px 3px 5px 6px #ccc;
   box-shadow: 3px 3px 5px 6px #ccc;
 }
 
-a {
+a,
+.closeMessage,
+button {
   text-decoration: none;
   cursor: pointer;
 }
+.deleteMessageBtn,
+.editMessageBtn,
+#postBtn,
+.closeMessage,
+#editMessageBtn,
+#postMessageBtn {
+  padding: 0.5em;
+  border: none;
+  border-radius: 5px;
+  margin: 0.25em;
+}
+
 .messageTime {
   color: #d3d3d3;
 }

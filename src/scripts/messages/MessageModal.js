@@ -19,7 +19,7 @@ const render = () => {
       <span class="close-btn closeMessage">&times;</span>
       <h3>Add A Post</h3>
       <textarea id="message-textarea"></textarea>
-      <div>
+      <div class="messageModalBtns">
       <button class="closeMessage">Cancel</button>
       <div id="modalButtonArea">
       </div>
