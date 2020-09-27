@@ -1,7 +1,6 @@
 import { LoginForm } from './auth/LoginForm.js';
 import { RegisterForm } from './auth/RegisterForm.js';
 import { Nutshell } from './Nutshell.js';
-// import { TaskModal } from './tasks/TaskModal.js'
 import { TaskForm } from './tasks/TaskForm.js'
 
 /*
@@ -15,4 +14,3 @@ LoginForm();
 RegisterForm();
 Nutshell();
 TaskForm();
-// TaskModal();

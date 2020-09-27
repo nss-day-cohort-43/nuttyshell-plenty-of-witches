@@ -13,12 +13,17 @@ export const TaskList = () => {
 let domElement = document.querySelector(".taskContainer")
 
 const renderTasks = (tasks) => {
+    let HTMLCompletedRender = tasks.map((singleTask)=> { 
+        if (singleTask.taskStatus === true) {
+            return TasksHTML(singleTask)
+        }
+    })
+
+
     let HTMLRender = tasks.map((singleTask) => {
       if (singleTask.taskStatus === false) {
           return CompletedTasks(singleTask);
-      } else if (singleTask.taskStatus === true) {
-          return TasksHTML(singleTask)
-      }
+      } 
     })
     domElement.innerHTML = `
     <section class="taskFormModal">
@@ -36,7 +41,13 @@ const renderTasks = (tasks) => {
     <h3> Tasks To Complete </h4>
     `+
     HTMLRender.join("")
-    + `
+    + 
+    `<div class="completedTasksModal">hi! <div class="modal-content">`
+    +
+    HTMLCompletedRender.join("")
+    +
+    `</div></div>`+
+    `
     <div class="taskContainerButtons">
     <button id="viewCompletedTasks">View Completed Tasks</button>
     <button id="addNewTask--btn">Add New Task </button>
@@ -53,7 +64,7 @@ eventHub.addEventListener("taskStateChanged", () => {
 
 eventHub.addEventListener("click", event => {
     const modal = document.querySelector(".taskFormModal");
-    let completedTaskDivs = document.querySelector(".completedTasks")
+    let completedTaskDivs = document.querySelector(".completedTasksModal")
     if (event.target.id === "addNewTask--btn") {
         console.log("add new task btn clicked!")
         modal.style.display = "block";
