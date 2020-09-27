@@ -46,3 +46,8 @@ export const saveTask = (TaskObj) => {
     })
     .then(dispatchStateChangeEvent)
   }
+
+  export const getSingleTask = (id) => {
+    return fetch (`http://localhost:8088/tasks/${id}`)
+    .then(response=>response.json)
+  }
