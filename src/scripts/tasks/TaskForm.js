@@ -1,7 +1,7 @@
 import { TaskList } from "./TaskList.js"
 import { getTasks, useTasks, saveTask, editTask, getSingleTask } from "./TaskProvider.js"
 
-const contentElement = document.querySelector(".taskFormContainer")
+const contentElement = document.querySelector(".taskContainer")
 const eventHub = document.querySelector(".container")
 
 eventHub.addEventListener("click", clickEvent => {
@@ -30,7 +30,6 @@ eventHub.addEventListener("click", clickEvent => {
 })
 
 eventHub.addEventListener("click", event => {
-    console.log("a click happened!")
     if(event.target.id.startsWith("taskCheckbox")) {
         const [prefix, id, user, date, type] = event.target.id.split("--");
         console.log("id: ", id)

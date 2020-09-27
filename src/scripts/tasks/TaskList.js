@@ -16,12 +16,23 @@ const renderTasks = (tasks) => {
     let HTMLRender = tasks.map((singleTask) => {
       if (singleTask.taskStatus === false) {
           return CompletedTasks(singleTask);
-      } else {
-          console.log("argh")
-        //   return CompletedTasks(singleTask)
+      } else if (singleTask.taskStatus === true) {
+          return TasksHTML(singleTask)
       }
     })
     domElement.innerHTML = `
+    <section class="taskFormModal">
+        <div class="modal-content">
+            <h3>Add A New Task:</h3>
+            <textarea id="taskForm--text" placeholder="enter task here"></textarea><br>
+            <p>complete by:</p>
+            <input id="taskForm--dueDate" type="date" placeholder="Complete by..."></input>
+            <button id="taskForm--saveBtn">Save Task</button>
+            <div id="textForm--textAlert"></div>
+            </div>
+            </section>
+
+
     <h3> Tasks To Complete </h4>
     `+
     HTMLRender.join("")
@@ -37,4 +48,18 @@ const eventHub = document.querySelector(".container");
 eventHub.addEventListener("taskStateChanged", () => {
     const newTask = useTasks();
     renderTasks(newTask)
+})
+
+
+eventHub.addEventListener("click", event => {
+    const modal = document.querySelector(".taskFormModal");
+    let completedTaskDivs = document.querySelector(".completedTasks")
+    if (event.target.id === "addNewTask--btn") {
+        console.log("add new task btn clicked!")
+        modal.style.display = "block";
+    } else if (event.target.id === "viewCompletedTasks") {
+        console.log("view completed tasks btn clicked!")
+        completedTaskDivs.style.display = "block"
+    }
+
 })
