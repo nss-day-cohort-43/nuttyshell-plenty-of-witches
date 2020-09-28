@@ -5,7 +5,7 @@ export const FriendForm = () => {
     <h2>Friends List</h2>
     <div>
       <button>Add Friend</button>
-      <div id="friendcontent">Friends List Goes Here</div>
+      <div id="friendContent">Friends List Goes Here</div>
     </div>
   </section>
   `);
