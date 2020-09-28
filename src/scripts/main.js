@@ -10,4 +10,4 @@ import { Nutshell } from './Nutshell.js';
         ensure that the Nutshell component gets rendered
 */
 LoginForm();
-RegisterForm();
+RegisterForm()
