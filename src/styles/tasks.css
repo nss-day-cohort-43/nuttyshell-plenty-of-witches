@@ -94,7 +94,7 @@
     width: 100%;
 }
 
-#taskCreatedBy {
+#taskCreatedBy, #taskStatus {
     color: grey;
     margin: 0;
     padding: 0.1;
@@ -114,6 +114,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+}
+
+.completedTask, .incompleteTask {
+    width: 80%;
+    padding: 0;
+    margin: 0;
+    justify-self: right;
 }
 
 
@@ -147,6 +154,7 @@ p {
   .taskCard {
       width: 20%;
       border: 1px solid lightgray;
-      padding: 1rem;
+      padding: 0.4rem;
       margin: 0.2rem;
   }
+

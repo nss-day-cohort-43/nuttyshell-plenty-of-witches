@@ -72,8 +72,8 @@ eventHub.addEventListener("click", event => {
                 date: parseInt(date)
             }
             editTask(updatedTask, id)
-            console.log("id: ", id)
-            console.log("updated task: ", updatedTask)
+            editTaskDiv.style.display = "none"
+            render(updatedTask)
         } else if (action === "delete") {
             let areYouSure = confirm("This will permanently delete your task...")
             if (areYouSure) {

@@ -10,9 +10,7 @@ export const getTasks = () => {
 }
 
 // provides all tasks from the database
-export const useTasks = () => {
-    return tasks.slice();
-}
+export const useTasks = () => {return tasks.slice()}
 
 const eventHub = document.querySelector(".container");
 

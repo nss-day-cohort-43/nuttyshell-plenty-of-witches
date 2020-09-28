@@ -1,5 +1,5 @@
 import { getTasks, useTasks } from "./TaskProvider.js"
-import { CompletedTasksHTML,  MyIncompleteTasksHTML, TheirIncompleteTasksHTML} from "./Tasks.js"
+import { MyCompletedTasksHTML,  MyIncompleteTasksHTML, TheirIncompleteTasksHTML, TheirCompletedTasksHTML} from "./Tasks.js"
 
 const eventHub = document.querySelector(".container");
 
@@ -46,7 +46,7 @@ eventHub.addEventListener("change", event => {
             tasksToPrint = myTasks.filter(task => task.taskStatus === false)
             renderTasks(tasksToPrint)
         } else if (filterValue === "myCompletedTasks") {
-            tasksToPrint = allTasks.filter(task => task.taskStatus === true)
+            tasksToPrint = myTasks.filter(task => task.taskStatus === true)
             renderTasks(tasksToPrint)
         } else if (filterValue === "allCompletedTasks") {
             tasksToPrint = allTasks.filter(task => task.taskStatus === true)
@@ -97,7 +97,11 @@ let user = parseInt(sessionStorage.getItem("activeUser"))
     // describes which version of html to display
     let HTMLRender = tasks.map((singleTask)=> { 
         if (singleTask.taskStatus === true)   {
-            return CompletedTasksHTML(singleTask)
+            if (singleTask.userId === user) {
+                return MyCompletedTasksHTML(singleTask)
+            } else {
+                return TheirCompletedTasksHTML(singleTask)
+            }
         } else if ( singleTask.taskStatus === false) {
             if (singleTask.userId === user) {
                 return MyIncompleteTasksHTML(singleTask)
