@@ -28,6 +28,30 @@ Will need to update TASKS database to include:
     • date: int
     • id: int
 
+Will need to import the following items into main.js:
+    
+    
+    import { TaskForm } from './tasks/TaskForm.js
+    TaskForm();
+
+For functionality to only show login/register on page load if no user is saved in session storage & then show dashboard once user is "logged in", place the following code into main.js: 
+
+```let currentUser = parseInt(sessionStorage.getItem("activeUser"));
+const webpageLoadAction = () => {
+    if (currentUser) {
+        document.querySelector(".dashboard").style.display = "block"
+        document.querySelector(".auth--login").style.display = "none"
+        document.querySelector(".auth--register").style.display = "none"
+    } else {
+        document.querySelector(".dashboard").style.display = "none"
+        document.querySelector(".auth--login").style.display = "block"
+        document.querySelector(".auth--register").style.display = "block"
+    }
+}
+window.onload = webpageLoadAction()
+```
+For styling, import ```tasks.css``` into ```main.css``` file
+
 # Checklist:
 - [x] My code follows the style guidelines of this project
 - [x] I have performed a self-review of my own code
