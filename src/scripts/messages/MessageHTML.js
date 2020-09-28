@@ -3,7 +3,7 @@
 export const MessageHTML = (messageObj) => {
   return `
   <section id="messageCard--${messageObj.id}">
-  <div class="messageContent shadow">
+  <div class="messageContent">
     ${userIcon(messageObj)}
     <div class="messageText">${messageObj.message}</div>
     <div class="messageDetail">${deleteBtn(messageObj)}
@@ -37,8 +37,8 @@ const userIcon = (theMessageObj) => {
     parseInt(theMessageObj.user.id) ===
     parseInt(sessionStorage.getItem("activeUser"))
   ) {
-    return ` <a href="#"><div class="userIcon shadow currentUserIcon">${theMessageObj.user.username}</div></a>`;
+    return ` <a href="#"><div class="userIcon currentUserIcon">${theMessageObj.user.username}</div></a>`;
   } else {
-    return `<a href="#"><div class="userIcon shadow otherUserIcon">${theMessageObj.user.username}</div></a>`;
+    return `<a href="#"><div class="userIcon otherUserIcon">${theMessageObj.user.username}</div></a>`;
   }
 };
