@@ -13,7 +13,6 @@ export const getTasks = () => {
 export const useTasks = () => {return tasks.slice()}
 
 const eventHub = document.querySelector(".container");
-
 const dispatchStateChangeEvent = () => {
     const taskStateChangedEvent = new CustomEvent("taskStateChanged")
     eventHub.dispatchEvent(taskStateChangedEvent)
@@ -34,7 +33,7 @@ export const saveTask = (TaskObj) => {
       .then(dispatchStateChangeEvent);
   };
 
-
+// edits a task inside the database.
   export const editTask = (taskObj, taskId) => {
     return fetch(`http://localhost:8088/tasks/${taskId}`, {
       method: "PUT",
@@ -50,13 +49,8 @@ export const saveTask = (TaskObj) => {
   }
 
 
-  // returns a single task with the id passed into the function. 
-  export const getSingleTask = (id) => {
-    return fetch (`http://localhost:8088/tasks/${id}`)
-    .then(response=>response.json)
-  }
 
-
+// deletes a task from the database. 
   export const deleteTask = (taskId) => {
     return fetch(`http://localhost:8088/tasks/${taskId}`, {
         method: "DELETE"

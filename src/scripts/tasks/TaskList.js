@@ -20,19 +20,16 @@ eventHub.addEventListener("taskStateChanged", () => {
 eventHub.addEventListener("click", event => {
     const newTaskModal = document.querySelector(".taskFormModal");
     if (event.target.id === "addNewTask--btn") {
-        console.log("add new task btn clicked!")
         newTaskModal.style.display = "block";
     } else if (event.target.id === "newTaskClose") {
-        console.log("close new task modal button clicked!")
         newTaskModal.style.display = "none"
     }})
 
 //sends list of tasks to renderTasks function dependant on dropdown menu selection
 eventHub.addEventListener("change", event => {
     if (event.target.id === "filterTasksDropdownSelect") {
-        let dropdownMenuSelector = document.querySelector(".dropdownMenu")
-        const filterValue = document.querySelector(".dropdownMenu").value
-        console.log("filterValue: ", filterValue)
+        let dropdownMenuSelector = document.querySelector(".dropdownMenu--filter")
+        const filterValue = document.querySelector(".dropdownMenu--filter").value
         const myId = parseInt(sessionStorage.getItem("activeUser"))
         const allTasks = useTasks()
         let myTasks = allTasks.filter(task => task.userId === myId)
@@ -66,7 +63,6 @@ eventHub.addEventListener("click", event => {
     let editTaskDiv = document.querySelector(".editTaskModal")
     if (event.target.id.startsWith("editTask--")) {
         const [prefix, id, user, date, type] = event.target.id.split("--");
-        console.log("edit task id: ", id)
         let taskObject = {
             userId: parseInt(user),
             name: document.querySelector(`#taskName--${id}`).innerHTML,
@@ -77,7 +73,6 @@ eventHub.addEventListener("click", event => {
         editTaskDiv.style.display = "block"
 
     } else if (event.target.id === "editTaskClose") {
-        console.log("close completed Task modal button clicked!")
         editTaskDiv.style.display = "none"
     } 
 })
@@ -99,13 +94,13 @@ let user = parseInt(sessionStorage.getItem("activeUser"))
         if (singleTask.taskStatus === true)   {
             if (singleTask.userId === user) {
                 return MyCompletedTasksHTML(singleTask)
-            } else {
+            } else  if (singleTask.userId !== user && singleTask.private === false) {
                 return TheirCompletedTasksHTML(singleTask)
             }
         } else if ( singleTask.taskStatus === false) {
             if (singleTask.userId === user) {
                 return MyIncompleteTasksHTML(singleTask)
-            } else {
+            } else if (singleTask.userId !== user && singleTask.private === false) {
                 return TheirIncompleteTasksHTML(singleTask)
             }
         }
@@ -121,6 +116,11 @@ let user = parseInt(sessionStorage.getItem("activeUser"))
             <textarea id="taskForm--text" placeholder="enter task here"></textarea><br>
             <p>complete by:</p>
             <input id="taskForm--dueDate" type="date" placeholder="Complete by..."></input>
+            <select class="dropdownMenu" id="taskForm--visibility">
+                <option value="0">Viewable By:</option>
+                <option value="true">Private</option>
+                <option value="false">Public</option>
+            </select>
             <button id="taskForm--saveBtn">Save Task</button>
             <div id="textForm--textAlert"></div>
         </div>
@@ -130,7 +130,7 @@ let user = parseInt(sessionStorage.getItem("activeUser"))
     <h3> Tasks To Complete </h4>
         <section class="filterTasks" id="willThisIdWork">
             <label for="filterTasksDropdown"></label>
-            <select class="dropdownMenu" id="filterTasksDropdownSelect">
+            <select class="dropdownMenu--filter" id="filterTasksDropdownSelect">
                 <option value="default">Filter By:</option>
                 <option value="myIncompleteTasks">My Incomplete Tasks</option>
                 <option value="allIncompleteTasks">All Incomplete Tasks</option>
@@ -160,7 +160,7 @@ let user = parseInt(sessionStorage.getItem("activeUser"))
 }
 
 
-// html to display in edit model
+// html to display html in edit model
 const renderEditTaskHTML = (taskObj, taskId) => {
     return `
     
@@ -171,6 +171,11 @@ const renderEditTaskHTML = (taskObj, taskId) => {
         <textarea id="taskEditForm--text" placeholder="Update Task Here"></textarea><br>
         <p>complete by:</p>
         <input id="taskForm--dueDate" type="date" placeholder="Complete by..."></input>
+        <select class="dropdownMenu" id="taskEdit--visibility">
+                <option value="0">Viewable By:</option>
+                <option value="true">Private</option>
+                <option value="false">Public</option>
+            </select>
     <button class="savedEdit-btn" id="editedTaskBtn--save--${taskId}--${taskObj.userId}--${taskObj.date}">Save Updated Note</button><button class="taskEdit-btn" id="editedTaskBtn--delete--${taskId}--${taskObj.userId}--${taskObj.date}">Delete Note</delete>
     </div>
     

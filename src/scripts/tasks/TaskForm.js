@@ -1,33 +1,51 @@
 import { TaskList } from "./TaskList.js"
-import { getTasks, useTasks, saveTask, editTask, getSingleTask, deleteTask } from "./TaskProvider.js"
-
-const contentElement = document.querySelector(".taskContainer")
+import { getTasks, useTasks, saveTask, editTask, deleteTask } from "./TaskProvider.js"
 const eventHub = document.querySelector(".container")
 
 
+/* 
+    !!! click event to save new task once task, visibility & due date have been filled out by the user !!!
+        converts visibility string to boolean value 
 
 
+*/
 
-
-// click event to save new task once task & due date have been filled out by the user. 
 eventHub.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "taskForm--saveBtn") {
         const taskText = document.querySelector("#taskForm--text");
         const taskDue = document.querySelector("#taskForm--dueDate");
+        let taskVisiblity; 
+        const stringToBoolean = () => {
+            let visibilityValue = document.querySelector("#taskForm--visibility").value
+            if (visibilityValue === "true") {
+                taskVisiblity = true
+            } else if (visibilityValue === "false") {
+                taskVisiblity = false
+            }
+            return taskVisiblity
+        }
+        
+        //function to clear form fields after submit. 
         const clearTaskForm = () => {
             taskText.value = "";
             taskDue.value = "";
         }
-        
+
+        // function to alert user if all fields are not submitted properly. 
         if (taskText.value === "") {
             window.alert("please enter a task")
         } else if (taskDue.value === "") {
             window.alert("please enter a due date")
+        } else if (stringToBoolean() === undefined) {
+            window.alert("please enter a privacy selection")
+
+        //function to create new task in database. 
         } else {
             const newTask = {
                 userId: parseInt(sessionStorage.getItem("activeUser")),
                 name: taskText.value,
                 taskStatus: false,
+                private: stringToBoolean(),
                 date: Date.parse(taskDue.value)
             }
             saveTask(newTask)
@@ -36,44 +54,74 @@ eventHub.addEventListener("click", clickEvent => {
     }
 })
 
-// click event to mark task as complete or incomplete by using checkbox for that specific task. 
+/* 
+    !!! click event to handle task appropriately based on user action !!!
+        when checkbox is clicked (checked or unchecked) that task is marked complete or incomplete as needed. 
+        when save button clicked on edit task modal, the task is edited in the database & rendered on the page. 
+        when delete button clicked on edit task modal, a confirm window appears. if confirmed, the task is deleted from the database. 
+*/
+
 eventHub.addEventListener("click", event => {
     let editTaskDiv = document.querySelector(".editTaskModal")
 
     if(event.target.id.startsWith("taskCheckbox")) {
-        const [prefix, id, user, date, type] = event.target.id.split("--");
+        const [prefix, id, user, date, type, visibility] = event.target.id.split("--");
+        console.log("checkbox visibility: ", visibility)
         console.log("id: ", id)
-        let task = getSingleTask(id)
+
+        let taskVisiblity; 
+        const checkboxStringToBoolean = () => {
+            if (visibility === "Private") {
+                taskVisiblity = true
+            } else if (visibility === "Public") {
+                taskVisiblity = false
+            }
+            return taskVisiblity
+        }
         
         if (type === "incomplete") {
             let updatedTask = {
                 userId: parseInt(user),
                 name: document.querySelector(`#taskName--${id}`).innerHTML,
                 taskStatus: true,
+                private: checkboxStringToBoolean(),
                 date: parseInt(date)
             }
             editTask(updatedTask, id)
+
         } else if (type === "complete") {
             let updatedTask = {
                 userId: parseInt(user),
                 name: document.querySelector(`#taskName--${id}`).innerHTML,
                 taskStatus: false,
+                private: checkboxStringToBoolean(),
                 date: parseInt(date)
             }
             editTask(updatedTask, id)
         }
     } else if (event.target.id.startsWith("editedTaskBtn--")) {
         const [prefix, action, id, user, date] = event.target.id.split("--");
+        let taskVisiblity; 
+        const stringToBoolean = () => {
+            let visibilityValue = document.querySelector("#taskEdit--visibility").value
+            if (visibilityValue === "true") {
+                taskVisiblity = true
+            } else if (visibilityValue === "false") {
+                taskVisiblity = false
+            }
+            return taskVisiblity
+        }
         if (action === "save") {
             let updatedTask = {
                 userId: parseInt(user),
                 name: document.querySelector(`#taskEditForm--text`).value,
                 taskStatus: false,
+                private: stringToBoolean(),
                 date: parseInt(date)
             }
             editTask(updatedTask, id)
             editTaskDiv.style.display = "none"
-            render(updatedTask)
+            TaskList(updatedTask)
         } else if (action === "delete") {
             let areYouSure = confirm("This will permanently delete your task...")
             if (areYouSure) {
@@ -89,31 +137,11 @@ eventHub.addEventListener("click", event => {
 })
 
 
-
-
-// the task form HTML representation that gets placed into modal once "Add New Task Button" is clicked. 
-const render = (taskArray) => {
-    contentElement.innerHTML = `
-    <section class="taskFormModal">
-        <div class="modal-content">
-            <span class="close-btn" id="newTaskClose">&times;</span>
-            <h3>Add A New Task:</h3>
-            <textarea id="taskForm--text" placeholder="enter task here"></textarea><br>
-            <p>complete by:</p>
-            <input id="taskForm--dueDate" type="date" placeholder="Complete by..."></input>
-            <button id="taskForm--saveBtn">Save Task</button>
-            <div id="textForm--textAlert"></div>
-            </div>
-            </section>
-    `
-}
-
 // render the new task form on the dom & show FULL list once new task is entered into database by user. 
 export const TaskForm = () => {
-    getTasks().then(()=> {
-        render()
-    })
+    getTasks()
     .then(()=> {
+        
         TaskList(useTasks())
     })
 }
