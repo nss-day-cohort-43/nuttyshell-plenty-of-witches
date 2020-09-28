@@ -57,3 +57,14 @@ export const saveTask = (TaskObj) => {
     return fetch (`http://localhost:8088/tasks/${id}`)
     .then(response=>response.json)
   }
+
+
+  export const deleteTask = (taskId) => {
+    return fetch(`http://localhost:8088/tasks/${taskId}`, {
+        method: "DELETE"
+    })
+    .then(()=> {
+      return getTasks();
+    })
+    .then(dispatchStateChangeEvent)
+  }

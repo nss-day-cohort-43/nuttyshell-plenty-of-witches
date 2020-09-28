@@ -11,7 +11,7 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.completedTasksModal {
+.editTaskModal {
     display: none;
     position: fixed; 
     padding-top: 50px;
@@ -66,7 +66,7 @@
     padding: 0;
 }
 
-#taskForm--text {
+#taskForm--text, #taskEditForm--text{
     width: 90%;
 }
 
@@ -135,72 +135,18 @@ p {
 }
 
 
-
-
-
-
-
-
-/* The switch - the box around the slider */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 24px;
-  }
-  
-  .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #e2d400;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #e2d400;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(16px);
-    -ms-transform: translateX(16px);
-    transform: translateX(16px);
-  }
-
-  .toggleTasks {
-      padding-bottom: 1rem;
+  .taskCardContainer {
       display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
+      justify-content: start;
+      flex-direction: column wrap;
+      flex-wrap: wrap;
+      max-height: auto;
+      max-width: 100%
   }
 
-  .switchLabel {
-      padding: 0.25rem 0.5rem;
-
+  .taskCard {
+      width: 20%;
+      border: 1px solid lightgray;
+      padding: 1rem;
+      margin: 0.2rem;
   }
