@@ -30,7 +30,7 @@ export const saveEvents = (event) => {
   // .then dispatch an event that says we need to re-render the aside
 };
 
-export const deleteMessage = (eventId) => {
+export const deleteEvent = (eventId) => {
   return fetch(`http://localhost:8088/events/${eventId}`, {
     method: 'DELETE',
   })

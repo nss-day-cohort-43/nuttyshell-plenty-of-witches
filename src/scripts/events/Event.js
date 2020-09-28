@@ -1,3 +1,6 @@
+import { deleteEvent, useEvents } from './EventDataProvider.js';
+import { RenderEventList } from './EventList.js';
+
 const eventHub = document.querySelector('.dashboard');
 
 export const eventCardRender = (eventObj) => {
@@ -16,5 +19,9 @@ export const eventCardRender = (eventObj) => {
 eventHub.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.id.includes('eventDeleteButton--')) {
     const [prefix, selectedEventId] = clickEvent.target.id.split('--');
+    deleteEvent(selectedEventId).then((_) => {
+      let updatedEventLogArray = useEvents();
+      RenderEventList(updatedEventLogArray);
+    });
   }
 });
