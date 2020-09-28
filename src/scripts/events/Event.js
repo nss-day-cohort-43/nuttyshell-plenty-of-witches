@@ -1,10 +1,10 @@
 export const eventCardRender = (eventObj) => {
-	return `
+  return `
       <div class="EventCard" id="${eventObj.id}">
       <h2>${eventObj.eventName}</h2>
       <p>${eventObj.eventLocationCity}, ${eventObj.eventLocationState}, ${eventObj.eventLocationZip}<p><br>
       <p>${eventObj.date}</p>
-      <button id="eventDeleteButton--1">Delete your Event?</button>
+      <button id="eventDeleteButton--${eventObj.id}">Delete your Event?</button>
       </div>`;
 };
 

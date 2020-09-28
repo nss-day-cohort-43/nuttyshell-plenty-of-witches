@@ -1,4 +1,5 @@
 import { getEvents, saveEvents } from './EventDataProvider.js';
+import { RenderEventList } from './EventList.js';
 
 const stateArray = [
   'Alabama',
@@ -91,10 +92,15 @@ export const renderNewEventForm = () => {
             <input id="newUserEvent--eventLocationZip" type="text" placeholder="Enter the events zip code">
             <h4>Please enter the event's date</h4>
             <input id="newUserEvent--date" type="date" placeholder="Enter the events date">
-            <button id="newUserEvent--createEventButton">Create Event!</button>
+            <button id="newUserEvent--createEventButton">Create Event!</button> <button id="newUserEvent--cancelEventButton">Cancel?</button>
   </section>
   `;
 };
+eventHub.addEventListener('click', (clickEvent) => {
+  if (clickEvent.target.id.includes('--cancelEventButton')) {
+    RenderEventList();
+  }
+});
 
 eventHub.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.id.includes('--createEventButton')) {
@@ -118,7 +124,7 @@ eventHub.addEventListener('click', (clickEvent) => {
       savedUserEventState === '0' ||
       savedUserEventZip === '' ||
       savedUserEventZip.length > 5 ||
-      // savedUserEventZip.test(/^[0-9]+$/) === false ||
+      savedUserEventZip.length < 5 ||
       savedUserEventDate === ''
     ) {
       window.alert('Yo fill out yo shit witch');
@@ -131,7 +137,10 @@ eventHub.addEventListener('click', (clickEvent) => {
         eventLocationZip: savedUserEventZip,
         date: savedUserEventDate,
       };
-      saveEvents(newUserEvent).then(getEvents).then(renderNewEventForm);
+      saveEvents(newUserEvent)
+        .then(getEvents)
+        .then(renderNewEventForm)
+        .then(RenderEventList);
     }
   }
 });

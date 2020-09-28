@@ -7,13 +7,12 @@ export const getEvents = () => {
     .then((Response) => Response.json())
     .then((parsedEvents) => {
       localEvents = parsedEvents;
+      console.log(localEvents);
     });
 };
 
 // This will return a copy of the localEvents so that we can change it without changing the original array.
-export const useEvents = () => {
-  localEvents.slice();
-};
+export const useEvents = () => localEvents.slice();
 
 // We will need a saveEvents() - which will push the new user created event.
 export const saveEvents = (event) => {

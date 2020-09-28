@@ -21,5 +21,4 @@ RegisterForm();
 // 	testArray = useEvents();
 // 	console.log('this is the test array', testArray);
 // });
-
-renderNewEventForm();
+RenderEventList();

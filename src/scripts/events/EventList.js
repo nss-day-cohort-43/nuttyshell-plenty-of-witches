@@ -1,16 +1,27 @@
 import { eventCardRender } from './Event.js';
 import { getEvents, useEvents } from './EventDataProvider.js';
+import { renderNewEventForm } from './EventForm.js';
 
-export const EventList = () => {
-	/* This will be the function that uses the the render method */
-};
+const eventHub = document.querySelector('.dashboard');
+let eventListArray = [];
 
 export const RenderEventList = () => {
-	const eventContainerDomTarget = document.querySelector('.eventsContainer');
+  const eventContainerDomTarget = document.querySelector('.eventsContainer');
+  let eventListHtmlHolder =
+    '<button id="newUserEvent--createEventFormButton">Create a new event?</button>';
+  getEvents().then((_) => {
+    eventListArray = useEvents();
+
+    eventListArray.forEach((eventObj) => {
+      eventListHtmlHolder += eventCardRender(eventObj) + ' ';
+
+      return (eventContainerDomTarget.innerHTML = eventListHtmlHolder);
+    });
+  });
 };
-/* We need a Render event that takes our render function in Event.js and goes through the list of events (array) and then places them on
-in a string that will go into the inner html
 
-
-
-*/
+eventHub.addEventListener('click', (clickEvent) => {
+  if (clickEvent.target.id.includes('--createEventFormButton')) {
+    renderNewEventForm();
+  }
+});
