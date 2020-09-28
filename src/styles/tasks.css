@@ -1,60 +1,63 @@
 /* styling for modal elements  */
-    .taskFormModal {
-        display: none;
-        position: fixed; 
-        padding-top: 50px;
-        left: 0; 
-        top: 0;
-        width: 100%;
-        height: 100%; 
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.5);
+.taskFormModal {
+    display: none;
+    position: fixed; 
+    padding-top: 50px;
+    left: 0; 
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.completedTasksModal {
+    display: none;
+    position: fixed; 
+    padding-top: 50px;
+    left: 0; 
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+    
+
+.modal-content {
+    position: relative; 
+    background-color: white;
+    padding: 25px; 
+    margin: auto; 
+    width: 80%;  
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
     }
-    
-    .completedTasksModal {
-        display: none;
-        position: fixed; 
-        padding-top: 50px;
-        left: 0; 
-        top: 0;
-        width: 100%;
-        height: 100%; 
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.5);
+
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
     }
-    
-    .modal-content {
-        position: relative; 
-        background-color: white;
-        padding: 25px; 
-        margin: auto; 
-        width: 80%;  
-        -webkit-animation-name: animatetop;
-        -webkit-animation-duration: 0.4s;
-        animation-name: animatetop;
-        animation-duration: 0.4s
-      }
-    
-    @-webkit-keyframes animatetop {
-        from {
-          top: -300px;
-          opacity: 0;
-        }
-        to {
-          top: 0;
-          opacity: 1;
-        }
-      }
-      @keyframes animatetop {
-        from {
-          top: -300px;
-          opacity: 0;
-        }
-        to {
-          top: 0;
-          opacity: 1;
-        }
-      }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+    }
+    @keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+    }
 
 .taskFormContainer {
     border: 2px solid blue;
@@ -82,16 +85,29 @@
 
 /* styling for rendered task list*/
 .task--dueDate {
-    color: grey;
+    color: black;
     margin: 0;
     padding: 0;
     font-size: 0.7rem;
     padding-left: 1.5rem;
     padding-bottom: 1rem;
+    width: 100%;
 }
 
-.completedTask {
-    text-decoration: line-through;
+#taskCreatedBy {
+    color: grey;
+    margin: 0;
+    padding: 0.1;
+    font-size: 0.85rem;
+    width: 90%;
+    padding-left: 1.4rem;
+    
+}
+
+.completedTasks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .incompleteTasks {
@@ -99,9 +115,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
 }
-.task--dueDate {
-    width: 100%;
-}
+
 
 .taskContainerButtons {
     display: inline-block;
@@ -120,3 +134,73 @@ p {
     padding: 0;
 }
 
+
+
+
+
+
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #e2d400;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #e2d400;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
+  }
+
+  .toggleTasks {
+      padding-bottom: 1rem;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+  }
+
+  .switchLabel {
+      padding: 0.25rem 0.5rem;
+
+  }

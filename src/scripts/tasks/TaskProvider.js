@@ -2,7 +2,7 @@ let tasks = [];
 
 // gathers all tasks in the database 
 export const getTasks = () => {
-    return fetch("http://localhost:8088/tasks")
+    return fetch("http://localhost:8088/tasks?_expand=user")
     .then((response)=> response.json())
     .then((parsedTasks) => {
         tasks = parsedTasks

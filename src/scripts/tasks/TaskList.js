@@ -1,5 +1,5 @@
 import { getTasks, useTasks } from "./TaskProvider.js"
-import { TasksHTML, CompletedTasks } from "./Tasks.js"
+import { AllIncompleteTasksHTML, AllCompletedTasksHTML, PersonalCompletedTasksHTML, PersonalIncompleteTasksHTML } from "./Tasks.js"
 
 // fetches ful list of tasks from database & places them on the DOM
 export const TaskList = () => {
@@ -21,7 +21,7 @@ eventHub.addEventListener("taskStateChanged", () => {
 eventHub.addEventListener("click", event => {
     const newTaskModal = document.querySelector(".taskFormModal");
     let completedTaskDivs = document.querySelector(".completedTasksModal")
-
+    
     if (event.target.id === "addNewTask--btn") {
         // shows new task modal when "add new task" btn clicked
         console.log("add new task btn clicked!")
@@ -38,8 +38,33 @@ eventHub.addEventListener("click", event => {
         // closes completed tasks modal
         console.log("close completed Task modal button clicked!")
         completedTaskDivs.style.display = "none"
+    } 
+})
+
+
+eventHub.addEventListener("change", event => {
+    if (event.target.id === "filterTasksDropdownSelect") {
+        let filterValue = document.querySelector(".dropdownMenu").value
+        console.log("filterValue: ", filterValue)
+        let myId = parseInt(sessionStorage.getItem("activeUser"))
+        let allTasks = useTasks()
+        let myTasks = allTasks.filter(task => task.userId === myId)
+
+        if (filterValue === "allIncompleteTasks") {
+            renderTasks(allTasks)
+        } else if (filterValue === "myIncompleteTasks") {
+            renderTasks(myTasks)
+        }
+
+
+
+
+
+
+
     }
 })
+
 
 
 
@@ -56,19 +81,24 @@ let domElement = document.querySelector(".taskContainer")
 */
 const renderTasks = (tasks) => {
 
-    let HTMLCompletedRender = tasks.map((singleTask)=> { 
+    
+
+    let HTMLAllCompletedRender = tasks.map((singleTask)=> { 
         if (singleTask.taskStatus === true) {
-            return TasksHTML(singleTask)
+            return AllIncompleteTasksHTML(singleTask)
         }
     })
 
 
-    let HTMLRender = tasks.map((singleTask) => {
+    let HTMLAllIncompleteRender = tasks.map((singleTask) => {
       if (singleTask.taskStatus === false) {
-          return CompletedTasks(singleTask);
+          return AllCompletedTasksHTML(singleTask);
       } 
     })
-    domElement.innerHTML = `
+
+
+    domElement.innerHTML = 
+    `
     <section class="taskFormModal">
         <div class="modal-content">
             <span class="close-btn" id="newTaskClose">&times;</span>
@@ -78,25 +108,45 @@ const renderTasks = (tasks) => {
             <input id="taskForm--dueDate" type="date" placeholder="Complete by..."></input>
             <button id="taskForm--saveBtn">Save Task</button>
             <div id="textForm--textAlert"></div>
-            </div>
-            </section>
+        </div>
+    </section>
 
 
     <h3> Tasks To Complete </h4>
-    `+
-    HTMLRender.join("")
+        <section class="filterTasks" id="willThisIdWork">
+            <label for="filterTasksDropdown">Filter Tasks</label>
+            <select class="dropdownMenu" id="filterTasksDropdownSelect">
+                <option value="default">Filter By:</option>
+                <option value="myIncompleteTasks">My Incomplete Tasks</option>
+                <option value="allIncompleteTasks">All Incomplete Tasks</option>
+                <option value="myCompletedTasks">My Completed Tasks</option>
+                <option value="allCompletedTasks">All Completed Tasks</option>
+                <option value="myEntireTaskList">My Entire Tasks</option>
+                <option value="EntireTaskList">Everyone's Tasks</option>
+            </select>
+        </section>
+    `
+    +
+    HTMLAllIncompleteRender.join("")
     + 
-    `<div class="completedTasksModal">
+    `
+    <div class="completedTasksModal">
     <div class="modal-content">
-    <span class="close-btn" id="completedTaskClose">&times;</span>`
+    <span class="close-btn" id="completedTaskClose">&times;</span>
+    
+    `
     +
-    HTMLCompletedRender.join("")
+    HTMLAllCompletedRender.join("")
     +
-    `</div></div>`+
+    `
+    </div></div>
+    `
+    +
     `
     <div class="taskContainerButtons">
     <button id="viewCompletedTasks">View Completed Tasks</button>
     <button id="addNewTask--btn">Add New Task </button>
-    </div>`
+    </div>
+    `
 }
 

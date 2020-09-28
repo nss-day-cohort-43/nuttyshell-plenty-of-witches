@@ -4,9 +4,16 @@ import { getTasks, useTasks, saveTask, editTask, getSingleTask } from "./TaskPro
 const contentElement = document.querySelector(".taskContainer")
 const eventHub = document.querySelector(".container")
 
+
+
+
+
+
 // click event to save new task once task & due date have been filled out by the user. 
 eventHub.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "taskForm--saveBtn") {
+       
+
         const taskText = document.querySelector("#taskForm--text");
         const taskDue = document.querySelector("#taskForm--dueDate");
         const clearTaskForm = () => {
@@ -20,6 +27,7 @@ eventHub.addEventListener("click", clickEvent => {
             window.alert("please enter a due date")
         } else {
             const newTask = {
+                userId: parseInt(sessionStorage.getItem("activeUser")),
                 name: taskText.value,
                 taskStatus: false,
                 date: Date.parse(taskDue.value)
@@ -39,7 +47,7 @@ eventHub.addEventListener("click", event => {
         
         if (type === "incomplete") {
             let updatedTask = {
-                userId: user,
+                userId: parseInt(sessionStorage.getItem("activeUser")),
                 name: document.querySelector(`#taskName--${id}`).innerHTML,
                 taskStatus: true,
                 date: parseInt(date)
@@ -47,7 +55,7 @@ eventHub.addEventListener("click", event => {
             editTask(updatedTask, id)
         } else if (type === "complete") {
             let updatedTask = {
-                userId: user,
+                userId: parseInt(sessionStorage.getItem("activeUser")),
                 name: document.querySelector(`#taskName--${id}`).innerHTML,
                 taskStatus: false,
                 date: parseInt(date)

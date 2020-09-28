@@ -14,3 +14,22 @@ LoginForm();
 RegisterForm();
 Nutshell();
 TaskForm();
+
+
+let currentUser = parseInt(sessionStorage.getItem("activeUser"));
+
+const webpageLoadAction = () => {
+    if (currentUser) {
+        document.querySelector(".dashboard").style.display = "block"
+        document.querySelector(".auth--login").style.display = "none"
+        document.querySelector(".auth--register").style.display = "none"
+    } else {
+        document.querySelector(".dashboard").style.display = "none"
+        document.querySelector(".auth--login").style.display = "block"
+        document.querySelector(".auth--register").style.display = "block"
+    }
+}
+
+
+
+window.onload = webpageLoadAction()
