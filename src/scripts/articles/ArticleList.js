@@ -13,7 +13,7 @@ const render = (articles) => {
     contentTarget.innerHTML = articles.map((articleObject) => {
         // return articleObject.id === parseInt(articleObject.id)
         return ArticleHTMLConverter(articleObject)
-    }).join("");
+    })
 }
 
 export const ArticleList = () => {
