@@ -33,3 +33,21 @@
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+#friendResults {
+  height: 10em;
+  width: 100%;
+  overflow: auto;
+}
+
+.friendSearchCard {
+  display: flex;
+  border: 1px solid #000;
+  margin: 1em;
+  padding: 1em;
+}
+
+.searchFriendInfo {
+  text-align: left;
+  width: 32%;
+}
