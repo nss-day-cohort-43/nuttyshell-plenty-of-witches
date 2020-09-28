@@ -1,14 +1,13 @@
-export const FriendHTML = (friendObj) => {
+export const FriendHTML = (relationshipObj, friendObj) => {
   return `
-  <div id="friendCard--${friendObj.followingId}" class="frindsCard">
-    <div class="friendIcon">
-      <div>Icon</div> 
-      <p>username</p>
+  <div id="friendCard--${relationshipObj.id}" class="friendCard">
+    <div class="userIcon friendIcon">
+      <div>${friendObj.username}</div> 
     </div>
       <div class="frindInfo">
       <ul>
-      <li>First Last</li>
-      <li>email</li>
+      <li>${friendObj.firstName} ${friendObj.lastName}</li>
+      <li>${friendObj.email}</li>
       </ul>
     </div>
   </div>

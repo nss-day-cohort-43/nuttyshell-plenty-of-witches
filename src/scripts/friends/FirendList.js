@@ -16,21 +16,19 @@ export const FriendsList = () => {
 
 const render = (theFriendsArray, theUsersArray) => {
   const contentTarget = document.getElementById("friendContent");
-  let friendsInfoArray = [];
+
   //get the matching frinds of the current user
-  const currentUserFriend = theFriendsArray.filter(
+  const currentFriendRelationship = theFriendsArray.filter(
     (friend) => friend.userId === parseInt(sessionStorage.getItem("activeUser"))
   );
 
-  //get the full user information for each following Id for the current user
-  currentUserFriend.map((friendInfo) => {
-    friendsInfoArray = theUsersArray.filter((user) => {
-      return user.id === friendInfo.followingId;
-    });
-  });
-
-  console.log(friendsInfoArray);
-  contentTarget.innerHTML = friendsInfoArray.map((friendInfoObj) => {
-    return FriendHTML(friendInfoObj);
-  });
+  //pass in the relationsip and the friend information
+  contentTarget.innerHTML = currentFriendRelationship
+    .map((relationship) => {
+      const matchingUser = theUsersArray.find(
+        (user) => relationship.followingId === user.id
+      );
+      return FriendHTML(relationship, matchingUser);
+    })
+    .join("");
 };
