@@ -1,5 +1,10 @@
 // This will hold the local events so we can slice it in the useEvents() function
 let localEvents = [];
+const eventHub = document.querySelector('.dashboard');
+
+const dispatchStateChangeEvent = () => {
+  eventHub.dispatchEvent(new CustomEvent('eventStateChanged'));
+};
 
 // This will be for grabbing the events from our local json server -
 export const getEvents = () => {
@@ -23,4 +28,12 @@ export const saveEvents = (event) => {
   });
   // .then we want to update our aside bar
   // .then dispatch an event that says we need to re-render the aside
+};
+
+export const deleteMessage = (eventId) => {
+  return fetch(`http://localhost:8088/events/${eventId}`, {
+    method: 'DELETE',
+  })
+    .then(getEvents)
+    .then(dispatchStateChangeEvent);
 };

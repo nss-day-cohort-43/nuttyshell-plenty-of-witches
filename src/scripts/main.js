@@ -22,3 +22,4 @@ RegisterForm();
 // 	console.log('this is the test array', testArray);
 // });
 RenderEventList();
+Nutshell();

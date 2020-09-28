@@ -1,3 +1,5 @@
+const eventHub = document.querySelector('.dashboard');
+
 export const eventCardRender = (eventObj) => {
   return `
       <div class="EventCard" id="${eventObj.id}">
@@ -10,3 +12,9 @@ export const eventCardRender = (eventObj) => {
 
 // This will render the cards for the events. Which we need to figure out how we're handling the dates within this string I'm running
 // into timing issues.
+
+eventHub.addEventListener('click', (clickEvent) => {
+  if (clickEvent.target.id.includes('eventDeleteButton--')) {
+    const [prefix, selectedEventId] = clickEvent.target.id.split('--');
+  }
+});
