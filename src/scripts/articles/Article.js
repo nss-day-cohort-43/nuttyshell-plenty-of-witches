@@ -10,6 +10,7 @@ export const ArticleHTMLConverter = (articleObject) => {
             <div class="article--content">Synopsis: ${articleObject.newsSynopsis}</div>
             <div class="article--url">URL: ${articleObject.newsURL}</div>
             <button id="deleteArticle--${articleObject.id}" class="deleteArticleButton">Delete</button>
+            <button id="editArticle--${articleObject.id}" class="editArticleButton">Edit</button>
         </section>
     `
 }

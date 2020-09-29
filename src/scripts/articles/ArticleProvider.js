@@ -55,3 +55,17 @@ export const deleteArticle = articleId => {
     })
         .then(getArticles)
 }
+
+export const editArticle = (articleId, articleObj) => {
+    return fetch(`http://localhost:8088/articles/${articleId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(articleObj)
+    })
+        .then(() => {
+            return getArticles()
+        })
+        .then(dispatchStateChangeEvent)
+}

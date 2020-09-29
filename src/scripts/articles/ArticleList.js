@@ -2,7 +2,7 @@
 map over an array and display all articles from Note.js
 */
 
-import { getArticles, useArticles, deleteArticle } from "./ArticleProvider.js";
+import { getArticles, useArticles, deleteArticle, editArticle } from "./ArticleProvider.js";
 import { ArticleHTMLConverter } from "./Article.js";
 
 const contentTarget = document.querySelector(".articleListContainer")
@@ -41,11 +41,32 @@ eventHub.addEventListener("click", clickEvent => {
             Once the operation is complete you should THEN invoke
             useArticles() and render the article list again.
         */
-        deleteArticle(id).then(
-            () => {
-                const updatedArticles = useArticles()
-                render(updatedArticles)
-            }
-        )
+
+        let areYouSure = confirm("This will permenantly delete your article...")
+
+        if (areYouSure) {
+            deleteArticle(id).then(
+                () => {
+                    const updatedArticles = useArticles()
+                    render(updatedArticles)
+                }
+            )
+        }
+    }
+
+    if (clickEvent.target.id.startsWith("editArticle--")) {
+        const [prefix, id] = clickEvent.target.id.split("--")
+        const editedArticle = {
+            userId: sessionStorage.getItem('activeUser'),
+            id: id,
+            newsTitle: articleTitle.value,
+            newsContent: articleContent.value,
+            newsURL: articleURL.value,
+            date: Date.now()
+        }
+        articleTitle.value = "";
+        articleContent.value = "";
+        articleURL.value = "";
+        editArticle(editedArticle.id, editedArticle);
     }
 })
