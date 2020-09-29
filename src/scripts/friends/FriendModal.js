@@ -20,6 +20,10 @@ eventHub.addEventListener("click", (event) => {
   if (event.target.id === "manageFriendBtn") {
     friendModal.style.display = "block";
   }
+  //icon clicked
+  if (event.target.classList.contains("userIcon")) {
+    friendModal.style.display = "block";
+  }
   //cancel btn
   if (event.target.classList.contains("closeMessage")) {
     friendModal.style.display = "none";
