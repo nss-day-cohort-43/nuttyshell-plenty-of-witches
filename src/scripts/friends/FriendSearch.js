@@ -20,18 +20,19 @@ eventHub.addEventListener("keyup", (event) => {
     for (const user of userArray) {
       //check for seach mataches
       let userInSearch = user.username.includes(event.target.value);
+      friendsArray = useFriends();
       // there is a match add to click
       if (userInSearch) {
         searchArray.push(user);
       }
       friendResults.innerHTML = searchArray
-        .map((result) => friendSearchHTML(result))
+        .map((result) => friendSearchHTML(result, friendsArray))
         .join("");
     }
   }
 });
 
-const friendSearchHTML = (userObj) => {
+const friendSearchHTML = (userObj, theFriendsArray) => {
   return `  
   <div>
     <div class="friendSearchCard">
@@ -40,14 +41,18 @@ const friendSearchHTML = (userObj) => {
     userObj.lastName
   }</div>
       <div class="searchFriendInfo">${userObj.email}</div>
-      <div class="friendDetail">${getFriendDetail(userObj)}</div>
+      <div class="friendDetail">${getFriendDetail(
+        userObj,
+        theFriendsArray
+      )}</div>
     </div>
   </div>`;
 };
 
-const getFriendDetail = (theUserObj) => {
+const getFriendDetail = (theUserObj, theFriendsArray) => {
   let button = "";
-  const currentFriendRelationship = friendsArray.filter(
+  //get the matching frinds of the current user
+  const currentFriendRelationship = theFriendsArray.filter(
     (friend) => friend.userId === parseInt(sessionStorage.getItem("activeUser"))
   );
   currentFriendRelationship.forEach((friend) => {
