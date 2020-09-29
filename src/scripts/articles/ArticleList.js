@@ -16,11 +16,9 @@ eventHub.addEventListener("userAuthenticated", e => {
 
 const render = (articles) => {
     contentTarget.innerHTML = articles.map((articleObject) => {
-        // if (articleObject.articleStatus === true) {
         if (articleObject.userId === user) {
             return ArticleHTMLConverter(articleObject)
         }
-        // }
     }).join("")
 }
 

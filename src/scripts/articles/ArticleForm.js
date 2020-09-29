@@ -79,6 +79,9 @@ export const ArticleForm = () => {
 
 }
 
+// action refers to the action of clicking the save or new article buttons; 
+// isShown is stating that the modal is NOT shown on page load; and articleObject as the 3rd parameter
+// is there for the purpose of fetching the article object by id when the edit button is clicked.
 
 const render = (action, isShown = false, articleObject = {}) => {
     contentTarget.innerHTML = `    
