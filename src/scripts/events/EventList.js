@@ -37,7 +37,5 @@ export const RenderEventList = () => {
 
 // This will be the one function that is called in nutshell - this makes sure that the user is logged in before they can see the events.
 export const loadEvents = () => {
-  eventHub.addEventListener('userAuthenticated', (e) => {
-    RenderEventList();
-  });
+  RenderEventList();
 };
