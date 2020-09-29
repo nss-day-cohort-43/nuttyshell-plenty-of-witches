@@ -55,7 +55,7 @@ const getFriendDetail = (theUserObj, theFriendsArray) => {
   const currentFriendRelationship = theFriendsArray.filter(
     (friend) => friend.userId === parseInt(sessionStorage.getItem("activeUser"))
   );
-  currentFriendRelationship.forEach((friend) => {
+  theFriendsArray.forEach((friend) => {
     if (
       friend.userId === parseInt(sessionStorage.getItem("activeUser")) &&
       friend.userId === theUserObj.id

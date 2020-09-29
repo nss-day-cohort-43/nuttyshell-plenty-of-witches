@@ -34,7 +34,6 @@ const render = (theFriendsArray, theUsersArray) => {
   const currentFriendRelationship = theFriendsArray.filter(
     (friend) => friend.userId === parseInt(sessionStorage.getItem("activeUser"))
   );
-  console.log(theFriendsArray);
   //pass in the relationsip and the friend information
   contentTarget.innerHTML = currentFriendRelationship
     .map((relationship) => {
