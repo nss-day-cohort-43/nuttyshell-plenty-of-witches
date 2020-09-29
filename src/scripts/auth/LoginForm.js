@@ -3,6 +3,7 @@ const eventHub = document.querySelector(".container")
 
 eventHub.addEventListener("userAuthenticated", e => {
     contentTarget.innerHTML = ""
+    document.querySelector(".dashboard").style.display = "block"
 })
 
 eventHub.addEventListener("click", e => {
