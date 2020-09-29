@@ -10,6 +10,9 @@ getUsers()
   .then(() => {
     userArray = useUsers();
     friendsArray = useFriends();
+  })
+  .then(() => {
+    openFriendModal(userArray, friendsArray);
   });
 
 //search for friend
@@ -31,6 +34,16 @@ eventHub.addEventListener("input", (event) => {
     }
   }
 });
+
+//check for seach mataches
+const openFriendModal = (theUserArray, theFriendsArray) => {
+  const friendResults = document.getElementById("friendResults");
+  eventHub.addEventListener("friendModalOpened", (event) => {
+    friendResults.innerHTML = theUserArray
+      .map((result) => friendSearchHTML(result, theFriendsArray))
+      .join("");
+  });
+};
 
 const friendSearchHTML = (userObj, theFriendsArray) => {
   return `  

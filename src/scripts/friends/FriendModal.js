@@ -18,6 +18,7 @@ export const FriendModal = () => {
 eventHub.addEventListener("click", (event) => {
   const friendModal = document.querySelector(".friend-modal");
   if (event.target.id === "manageFriendBtn") {
+    eventHub.dispatchEvent(new CustomEvent("friendModalOpened"));
     friendModal.style.display = "block";
   }
   //icon clicked
@@ -25,6 +26,7 @@ eventHub.addEventListener("click", (event) => {
     event.target.classList.contains("userIcon") &&
     !event.target.classList.contains("currentUserIcon")
   ) {
+    eventHub.dispatchEvent(new CustomEvent("friendModalOpened"));
     friendModal.style.display = "block";
   }
   //cancel btn

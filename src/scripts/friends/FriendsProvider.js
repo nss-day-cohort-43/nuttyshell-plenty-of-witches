@@ -10,7 +10,7 @@ const dispatchStateChangeEvent = () => {
 };
 
 export const getFriends = () => {
-  return fetch("http://localhost:8088/friends/")
+  return fetch(`http://localhost:8088/friends?_expand=user`)
     .then((response) => response.json())
     .then((parsedFriends) => {
       friendsArray = parsedFriends;
