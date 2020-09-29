@@ -8,6 +8,7 @@ export const FriendHTML = (relationshipObj, friendObj) => {
       <ul>
       <li>${friendObj.firstName} ${friendObj.lastName}</li>
       <li>${friendObj.email}</li>
+      <li><button id="deleteFriendBtn--${relationshipObj.id}">Delete</button></li>
       </ul>
     </div>
   </div>

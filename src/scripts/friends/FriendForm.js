@@ -4,7 +4,7 @@ export const FriendForm = () => {
   <section> 
     <h2>Friends List</h2>
     <div>
-      <button id="manageFriendBtn">Manage Friends</button>
+      <button id="manageFriendBtn">Add Friends</button>
       <div id="friendContent">Friends List Goes Here</div>
     </div>
     <div class="friend-modal">

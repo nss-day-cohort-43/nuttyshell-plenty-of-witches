@@ -12,13 +12,14 @@ getUsers()
     friendsArray = useFriends();
   })
   .then(() => {
-    openFriendModal(userArray, friendsArray);
+    openFriendModal(userArray);
   });
 
 //search for friend
 eventHub.addEventListener("input", (event) => {
   const searchArray = [];
   const friendResults = document.getElementById("friendResults");
+
   if (event.target.id === "friend-textarea") {
     for (const user of userArray) {
       //check for seach mataches
@@ -36,11 +37,11 @@ eventHub.addEventListener("input", (event) => {
 });
 
 //check for seach mataches
-const openFriendModal = (theUserArray, theFriendsArray) => {
+const openFriendModal = (theUsersArray) => {
   const friendResults = document.getElementById("friendResults");
   eventHub.addEventListener("friendModalOpened", (event) => {
-    friendResults.innerHTML = theUserArray
-      .map((result) => friendSearchHTML(result, theFriendsArray))
+    friendResults.innerHTML = theUsersArray
+      .map((result) => friendSearchHTML(result, theUsersArray))
       .join("");
   });
 };
@@ -71,8 +72,6 @@ const getFriendDetail = (theUserObj, theFriendsArray) => {
       friend.userId === theUserObj.id
     ) {
       button = "self";
-    } else if (friend.followingId === theUserObj.id) {
-      button = `<button id="deleteFriendBtn--${friend.id}">Delete</button>`;
     } else {
       button = `<button id="addFriendBtn--${theUserObj.id}">Add</button>`;
     }
