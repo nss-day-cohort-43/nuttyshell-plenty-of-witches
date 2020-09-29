@@ -4,6 +4,9 @@ import { getEvents, useEvents } from './events/EventDataProvider.js';
 import { renderNewEventForm } from './events/EventForm.js';
 import { RenderEventList, loadEvents } from './events/EventList.js';
 import { Nutshell } from './Nutshell.js';
+import { ArticleForm } from './articles/ArticleForm.js';
+import { ArticleList } from './articles/ArticleList.js';
+console.log('Plenty of Witches!');
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -15,9 +18,6 @@ import { Nutshell } from './Nutshell.js';
 LoginForm();
 RegisterForm();
 Nutshell();
-// let testArray = [];
 
-// getEvents().then((_) => {
-// 	testArray = useEvents();
-// 	console.log("this is the test array", testArray);
-// });
+ArticleForm();
+ArticleList();
