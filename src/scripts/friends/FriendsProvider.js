@@ -24,3 +24,15 @@ export const deleteFriend = (friendId) => {
     .then(getFriends)
     .then(dispatchStateChangeEvent);
 };
+
+export const addFriend = (friend) => {
+  return fetch(`http://localhost:8088/friends`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(friend),
+  })
+    .then(getFriends)
+    .then(dispatchStateChangeEvent);
+};

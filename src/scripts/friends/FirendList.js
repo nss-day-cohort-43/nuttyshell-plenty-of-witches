@@ -1,4 +1,9 @@
-import { getFriends, useFriends, deleteFriend } from "./FriendsProvider.js";
+import {
+  getFriends,
+  useFriends,
+  deleteFriend,
+  addFriend,
+} from "./FriendsProvider.js";
 import { getUsers, useUsers } from "../users/UserProvider.js";
 import { FriendHTML } from "./FriendHTML.js";
 const eventHub = document.querySelector(".container");
@@ -48,5 +53,16 @@ eventHub.addEventListener("click", (event) => {
     if (confirm("Are you sure you want to delete this friend?")) {
       deleteFriend(friendId);
     }
+  }
+});
+
+eventHub.addEventListener("click", (event) => {
+  if (event.target.id.startsWith("addFriendBtn")) {
+    const [prefix, friendId] = event.target.id.split("--");
+    const newFriend = {
+      userId: parseInt(sessionStorage.getItem("activeUser")),
+      followingId: parseInt(friendId),
+    };
+    addFriend(newFriend);
   }
 });

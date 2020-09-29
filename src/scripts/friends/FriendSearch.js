@@ -59,7 +59,7 @@ const getFriendDetail = (theUserObj) => {
     } else if (friend.followingId === theUserObj.id) {
       button = `<button id="deleteFriendBtn--${friend.id}">Delete</button>`;
     } else {
-      button = `<button id="addFriendBtn--${friend.id}">Add</button>`;
+      button = `<button id="addFriendBtn--${theUserObj.id}">Add</button>`;
     }
   });
   return button;
