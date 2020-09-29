@@ -53,19 +53,26 @@ const friendSearchHTML = (userObj) => {
     userObj.lastName
   }</div>
       <div class="searchFriendInfo">${userObj.email}</div>
-      <div id="friendDetail">${getFriendDetail(userObj)}</div>
+      <div class="friendDetail">${getFriendDetail(userObj)}</div>
     </div>
   </div>`;
 };
 
 const getFriendDetail = (theUserObj) => {
-  for (const friend of friendsArray) {
-    if (theUserObj.id !== sessionStorage.getItem("activeUser")) {
-      if (friend.followingId === theUserObj.id) {
-        return `<button id="deleteFriendBtn--${theUserObj.id}">Delete</button>`;
-      } else {
-        return `<button id="addFriendBtn--${theUserObj.id}">Add</button>`;
-      }
+  let button = "button";
+  //collect all friends fron frineds list
+  let friendsObj = document.querySelectorAll('[id^="friendCard"]');
+
+  friendsObj.forEach((friend) => {
+    //collect the ids of all frinds in friendlist
+    const [prefix, friendId] = friend.id.split("--");
+    if (theUserObj.id === parseInt(sessionStorage.getItem("activeUser"))) {
+      button = "Self";
+    } else if (parseInt(friendId) === theUserObj.id) {
+      button = `<button id="addFriendBtn--${theUserObj.id}">Add</button>`;
+    } else {
+      button = `<button id="delteFriendBtn--${theUserObj.id}">Delete</button>`;
     }
-  }
+  });
+  return button;
 };
