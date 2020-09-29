@@ -1,7 +1,11 @@
-import { LoginForm } from "./auth/LoginForm.js";
-import { RegisterForm } from "./auth/RegisterForm.js";
-import { Nutshell } from "./Nutshell.js";
-import { LogOut } from "./auth/LogOut.js"
+console.log('Plenty of Witches!');
+
+import { ArticleForm } from './articles/ArticleForm.js';
+import { ArticleList } from './articles/ArticleList.js';
+import { LoginForm } from './auth/LoginForm.js';
+import { RegisterForm } from './auth/RegisterForm.js';
+import { Nutshell } from './Nutshell.js';
+
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -12,5 +16,5 @@ import { LogOut } from "./auth/LogOut.js"
 */
 LoginForm();
 RegisterForm();
-Nutshell();
-LogOut();
+ArticleForm();
+ArticleList();
