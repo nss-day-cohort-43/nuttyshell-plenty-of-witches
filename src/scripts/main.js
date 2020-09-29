@@ -1,9 +1,9 @@
-import { LoginForm } from "./auth/LoginForm.js";
-import { RegisterForm } from "./auth/RegisterForm.js";
-import { getEvents, useEvents } from "./events/EventDataProvider.js";
-import { renderNewEventForm } from "./events/EventForm.js";
-import { RenderEventList, loadEvents } from "./events/EventList.js";
-import { Nutshell } from "./Nutshell.js";
+import { LoginForm } from './auth/LoginForm.js';
+import { RegisterForm } from './auth/RegisterForm.js';
+import { getEvents, useEvents } from './events/EventDataProvider.js';
+import { renderNewEventForm } from './events/EventForm.js';
+import { RenderEventList, loadEvents } from './events/EventList.js';
+import { Nutshell } from './Nutshell.js';
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -22,5 +22,4 @@ RegisterForm();
 // 	console.log("this is the test array", testArray);
 // });
 
-// Nutshell();
-RenderEventList();
+Nutshell();
