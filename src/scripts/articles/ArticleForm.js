@@ -6,7 +6,6 @@ const eventHub = document.querySelector(".container");
 const contentTarget = document.querySelector(".articleFormContainer");
 
 eventHub.addEventListener("click", clickEvent => {
-    console.log(clickEvent.target.id);
 
     // let modalBtn = document.getElementById("modalButton")
     let modal = document.querySelector(".modal")
@@ -49,7 +48,7 @@ eventHub.addEventListener("click", clickEvent => {
     }
 
     if (clickEvent.target.id.startsWith("editedArticle")) {
-        console.log("saving edited article")
+
         const [prefix, id] = clickEvent.target.id.split("--")
         const editedArticle = {
             userId: sessionStorage.getItem('activeUser'),
