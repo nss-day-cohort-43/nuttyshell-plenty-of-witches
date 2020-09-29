@@ -23,7 +23,9 @@ eventHub.addEventListener("input", (event) => {
   if (event.target.id === "friend-textarea") {
     for (const user of userArray) {
       //check for seach mataches
-      let userInSearch = user.username.includes(event.target.value);
+      let userName = user.username.toLowerCase();
+      let userInSearch = userName.includes(event.target.value);
+
       friendsArray = useFriends();
       // there is a match add to click
       if (userInSearch) {

@@ -7,6 +7,7 @@ import { TaskForm } from "./tasks/TaskForm.js";
 import { FriendsList } from "./friends/FirendList.js";
 import { FriendForm } from "./friends/FriendForm.js";
 import { FriendModal } from "./friends/FriendModal.js";
+import { LogOut } from "./auth/LogOut.js";
 export const Nutshell = () => {
   // Render all your UI components here
   MessageForm();
@@ -17,4 +18,5 @@ export const Nutshell = () => {
   FriendsList();
   FriendForm();
   FriendModal();
+  LogOut();
 };
