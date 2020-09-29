@@ -1,4 +1,4 @@
-import { getArticles, useArticles, saveArticle } from "./ArticleProvider.js";
+import { getArticles, useArticles, saveArticle, getSingleArticle, editArticle } from "./ArticleProvider.js";
 /*
     A bunch of input boxes related to the note information
 */
@@ -12,7 +12,7 @@ eventHub.addEventListener("click", clickEvent => {
     let modal = document.querySelector(".modal")
     // let closeBtn = document.querySelector(".close-btn")
 
-    if (clickEvent.target.id === "modal-btn") {
+    if (clickEvent.target.id === "modal-btn" || clickEvent.target.id.startsWith("editArticle--")) {
         modal.style.display = "block"
     }
 
@@ -20,12 +20,12 @@ eventHub.addEventListener("click", clickEvent => {
         modal.style.display = "none"
     }
 
+    const articleTitle = document.querySelector("#articleForm--title")
+    const articleContent = document.querySelector("#articleForm--synopsis")
+    const articleURL = document.querySelector("#articleForm--URL")
 
     if (clickEvent.target.id === "saveArticle") {
 
-        const articleTitle = document.querySelector("#articleForm--title")
-        const articleContent = document.querySelector("#articleForm--synopsis")
-        const articleURL = document.querySelector("#articleForm--URL")
 
         if (articleTitle.value !== "0" && articleContent.value !== "0" && articleURL.value !== "0") {
             const newArticle = {
@@ -39,6 +39,7 @@ eventHub.addEventListener("click", clickEvent => {
             articleContent.value = "";
             articleURL.value = "";
             saveArticle(newArticle);
+            modal.style.display = "none";
 
 
         } else {
@@ -46,26 +47,29 @@ eventHub.addEventListener("click", clickEvent => {
         }
 
     }
+
+    if (clickEvent.target.id.startsWith("editedArticle")) {
+        console.log("saving edited article")
+        const [prefix, id] = clickEvent.target.id.split("--")
+        const editedArticle = {
+            userId: sessionStorage.getItem('activeUser'),
+            id: id,
+            newsTitle: articleTitle.value,
+            newsContent: articleContent.value,
+            newsURL: articleURL.value,
+            date: Date.now()
+        }
+        articleTitle.value = "";
+        articleContent.value = "";
+        articleURL.value = "";
+        editArticle(editedArticle.id, editedArticle);
+        modal.style.display = "none";
+
+    }
+
 })
 
 
-// const render = () => {
-//     contentTarget.innerHTML = `
-//         <button id="modal-btn">New Article</button>
-//         <div class="modal">
-//             <div class="modal-content">
-//                 <span id="close-btn" class="close-button">&times;</span> 
-//                 <div class="newArticle">                       
-//                     <textarea id="articleForm--title" class="articleForm articleFormTitle" placeholder="[Title]"></textarea>
-//                     <textarea id="articleForm--synopsis" class="articleForm articleFormSynopsis" placeholder="[Synopsis]"></textarea>
-//                     <textarea id="articleForm--URL" class="articleForm articleFormURL" placeholder="[URL]"></textarea>
-//                     <button id="saveArticle" class="articleForm saveArticleButton">Save</button>
-//                 </div>                                                   
-//             </div>
-//         </div>        
-
-//     `
-// }
 
 export const ArticleForm = () => {
     getArticles()
@@ -76,9 +80,8 @@ export const ArticleForm = () => {
 }
 
 
-
-const render = (action) => {
-    contentTarget.innerHTML = `
+const render = (action, isShown = false, articleObject = {}) => {
+    contentTarget.innerHTML = `    
         <button id="modal-btn">New Article</button>
         <div class="modal">
             <div class="modal-content">
@@ -93,18 +96,39 @@ const render = (action) => {
         </div>        
             		
     `
+    let modal = document.querySelector(".modal")
+    if (isShown) {
+        modal.style.display = "block"
+    }
+
+    const articleTitle = document.querySelector("#articleForm--title")
+    const articleContent = document.querySelector("#articleForm--synopsis")
+    const articleURL = document.querySelector("#articleForm--URL")
+
+    articleTitle.value = articleObject.newsTitle;
+    articleContent.value = articleObject.newsContent;
+    articleURL.value = articleObject.newsURL;
+
+    if (articleObject.id === undefined) {
+        articleTitle.value = "";
+        articleContent.value = "";
+        articleURL.value = "";
+    }
 }
+
 
 
 eventHub.addEventListener("click", clickEvent => {
 
     if (clickEvent.target.id === "modal-btn") {
-        render("saveArticle");
+        render("saveArticle", true,);
     }
 
     if (clickEvent.target.id.startsWith("editArticle--")) {
         const [prefix, id] = clickEvent.target.id.split("--")
-        render(`editedArticle--${id}`);
+        getSingleArticle(id).then((singleArticle) => {
+            render(`editedArticle--${id}`, true, singleArticle);
+        })
     }
 
 })

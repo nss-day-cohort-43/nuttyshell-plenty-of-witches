@@ -13,7 +13,7 @@ const render = (articles) => {
     contentTarget.innerHTML = articles.map((articleObject) => {
         // return articleObject.id === parseInt(articleObject.id)
         return ArticleHTMLConverter(articleObject)
-    })
+    }).join("")
 }
 
 export const ArticleList = () => {
@@ -54,19 +54,19 @@ eventHub.addEventListener("click", clickEvent => {
         }
     }
 
-    if (clickEvent.target.id.startsWith("editArticle--")) {
-        const [prefix, id] = clickEvent.target.id.split("--")
-        const editedArticle = {
-            userId: sessionStorage.getItem('activeUser'),
-            id: id,
-            newsTitle: articleTitle.value,
-            newsContent: articleContent.value,
-            newsURL: articleURL.value,
-            date: Date.now()
-        }
-        articleTitle.value = "";
-        articleContent.value = "";
-        articleURL.value = "";
-        editArticle(editedArticle.id, editedArticle);
-    }
+    // if (clickEvent.target.id.startsWith("editArticle--")) {
+    //     const [prefix, id] = clickEvent.target.id.split("--")
+    //     const editedArticle = {
+    //         userId: sessionStorage.getItem('activeUser'),
+    //         id: id,
+    //         newsTitle: articleTitle.value,
+    //         newsContent: articleContent.value,
+    //         newsURL: articleURL.value,
+    //         date: Date.now()
+    //     }
+    //     articleTitle.value = "";
+    //     articleContent.value = "";
+    //     articleURL.value = "";
+    //     editArticle(editedArticle.id, editedArticle);
+    // }
 })

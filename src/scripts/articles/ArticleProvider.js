@@ -69,3 +69,9 @@ export const editArticle = (articleId, articleObj) => {
         })
         .then(dispatchStateChangeEvent)
 }
+
+export const getSingleArticle = articleId => {
+    return fetch(`http://localhost:8088/articles/${articleId}`)
+        .then(response => response.json())
+
+}
