@@ -99,6 +99,7 @@ eventHub.addEventListener("click", event => {
             }
             editTask(updatedTask, id)
         }
+
     } else if (event.target.id.startsWith("editedTaskBtn--")) {
         const [prefix, action, id, user, date] = event.target.id.split("--");
         let taskVisiblity; 
@@ -112,16 +113,24 @@ eventHub.addEventListener("click", event => {
             return taskVisiblity
         }
         if (action === "save") {
-            let updatedTask = {
-                userId: parseInt(user),
-                name: document.querySelector(`#taskEditForm--text`).value,
-                taskStatus: false,
-                private: stringToBoolean(),
-                date: parseInt(date)
+            if (document.querySelector(`#taskEditForm--text`).value === "") {
+                window.alert("please enter a task")
+            } else if (date === "") {
+                window.alert("please enter a due date")
+            } else if (stringToBoolean() === undefined) {
+                window.alert("please enter a privacy selection")
+            } else {
+                let updatedTask = {
+                    userId: parseInt(user),
+                    name: document.querySelector(`#taskEditForm--text`).value,
+                    taskStatus: false,
+                    private: stringToBoolean(),
+                    date: parseInt(date)
+                }
+                editTask(updatedTask, id)
+                editTaskDiv.style.display = "none"
+                TaskList(updatedTask) 
             }
-            editTask(updatedTask, id)
-            editTaskDiv.style.display = "none"
-            TaskList(updatedTask)
         } else if (action === "delete") {
             let areYouSure = confirm("This will permanently delete your task...")
             if (areYouSure) {
