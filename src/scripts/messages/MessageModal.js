@@ -1,6 +1,5 @@
-//display message modal
-
 import { getUsers, useUsers } from "../users/UserProvider.js";
+
 const eventHub = document.querySelector(".container");
 let userArray = [];
 
@@ -9,6 +8,10 @@ export const MessageModal = () => {
     userArray = useUsers();
     directMessage();
   });
+  render();
+};
+
+const render = () => {
   const contentTarget = document.querySelector(".messageContainer");
   return (contentTarget.innerHTML += ` 
   <div class="modal">
@@ -16,19 +19,24 @@ export const MessageModal = () => {
       <span class="close-btn closeMessage">&times;</span>
       <h3>Add A Post</h3>
       <textarea id="message-textarea"></textarea>
-      <div>
+      <div class="messageModalBtns">
       <button class="closeMessage">Cancel</button>
-      <button id="postMessageBtn">Post</button>
+      <div id="modalButtonArea">
+      </div>
       </div>
     </div>
   </div>
   `);
 };
 
+//event listener to control modal/Add Post Button
 eventHub.addEventListener("click", (event) => {
   const modal = document.querySelector(".modal");
   //open modal btn
   if (event.target.id === "postBtn") {
+    document.getElementById(
+      "modalButtonArea"
+    ).innerHTML = `<button id="postMessageBtn">Post</button>`;
     modal.style.display = "block";
   }
   //cancel post btn
@@ -37,18 +45,16 @@ eventHub.addEventListener("click", (event) => {
   }
 });
 
-//post button
+//post button inside modal
 //collect information from modal
 eventHub.addEventListener("click", (event) => {
   const modal = document.querySelector(".modal");
   if (event.target.id === "postMessageBtn") {
-    const recipientArray = directMessage();
-
     const customEvent = new CustomEvent("postEntered", {
       detail: {
         userId: sessionStorage.getItem("activeUser"),
         message: document.getElementById("message-textarea").value,
-        recipientId: recipientArray,
+        recipientId: directMessage(),
         date: Date.now(),
       },
     });
@@ -56,12 +62,13 @@ eventHub.addEventListener("click", (event) => {
     if (sessionStorage.getItem("activeUser") !== null) {
       eventHub.dispatchEvent(customEvent);
     }
+    //close modal and clear text area
     modal.style.display = "none";
     document.getElementById("message-textarea").value = "";
   }
 });
 
-const directMessage = () => {
+export const directMessage = () => {
   //check the string for @
   const messageText = document.getElementById("message-textarea").value;
   const directMessageArray = messageText.split("@");
@@ -80,6 +87,7 @@ const directMessage = () => {
   if (recipients.length === 0) {
     return null;
   } else {
+    //get the first user added
     return recipients[0];
   }
 };
