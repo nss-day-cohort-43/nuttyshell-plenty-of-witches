@@ -13,7 +13,7 @@ getUsers()
   });
 
 //search for friend
-eventHub.addEventListener("keyup", (event) => {
+eventHub.addEventListener("input", (event) => {
   const searchArray = [];
   const friendResults = document.getElementById("friendResults");
   if (event.target.id === "friend-textarea") {
@@ -52,9 +52,6 @@ const friendSearchHTML = (userObj, theFriendsArray) => {
 const getFriendDetail = (theUserObj, theFriendsArray) => {
   let button = "";
   //get the matching frinds of the current user
-  const currentFriendRelationship = theFriendsArray.filter(
-    (friend) => friend.userId === parseInt(sessionStorage.getItem("activeUser"))
-  );
   theFriendsArray.forEach((friend) => {
     if (
       friend.userId === parseInt(sessionStorage.getItem("activeUser")) &&
