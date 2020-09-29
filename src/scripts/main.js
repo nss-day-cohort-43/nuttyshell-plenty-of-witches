@@ -14,12 +14,10 @@ import { Nutshell } from './Nutshell.js';
 */
 LoginForm();
 RegisterForm();
-
+Nutshell();
 // let testArray = [];
 
 // getEvents().then((_) => {
 // 	testArray = useEvents();
 // 	console.log("this is the test array", testArray);
 // });
-
-Nutshell();
