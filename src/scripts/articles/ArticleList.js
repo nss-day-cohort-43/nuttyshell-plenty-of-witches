@@ -7,12 +7,20 @@ import { ArticleHTMLConverter } from "./Article.js";
 
 const contentTarget = document.querySelector(".articleListContainer")
 const eventHub = document.querySelector(".container")
+let user = parseInt(sessionStorage.getItem('activeUser'))
+
+eventHub.addEventListener("userAuthenticated", e => {
+    const newArticles = useArticles()
+    render(newArticles)
+})
 
 const render = (articles) => {
-
     contentTarget.innerHTML = articles.map((articleObject) => {
-        // return articleObject.id === parseInt(articleObject.id)
-        return ArticleHTMLConverter(articleObject)
+        // if (articleObject.articleStatus === true) {
+        if (articleObject.userId === user) {
+            return ArticleHTMLConverter(articleObject)
+        }
+        // }
     }).join("")
 }
 
@@ -53,20 +61,4 @@ eventHub.addEventListener("click", clickEvent => {
             )
         }
     }
-
-    // if (clickEvent.target.id.startsWith("editArticle--")) {
-    //     const [prefix, id] = clickEvent.target.id.split("--")
-    //     const editedArticle = {
-    //         userId: sessionStorage.getItem('activeUser'),
-    //         id: id,
-    //         newsTitle: articleTitle.value,
-    //         newsContent: articleContent.value,
-    //         newsURL: articleURL.value,
-    //         date: Date.now()
-    //     }
-    //     articleTitle.value = "";
-    //     articleContent.value = "";
-    //     articleURL.value = "";
-    //     editArticle(editedArticle.id, editedArticle);
-    // }
 })

@@ -29,7 +29,7 @@ eventHub.addEventListener("click", clickEvent => {
 
         if (articleTitle.value !== "0" && articleContent.value !== "0" && articleURL.value !== "0") {
             const newArticle = {
-                userId: sessionStorage.getItem('activeUser'),
+                userId: parseInt(sessionStorage.getItem('activeUser')),
                 newsTitle: articleTitle.value,
                 newsContent: articleContent.value,
                 newsURL: articleURL.value,
