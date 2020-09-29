@@ -8,11 +8,11 @@ const contentTarget = document.querySelector(".articleFormContainer");
 eventHub.addEventListener("click", clickEvent => {
     console.log(clickEvent.target.id);
 
-    // let modalBtn = document.getElementById("modal-btn")
+    // let modalBtn = document.getElementById("modalButton")
     let modal = document.querySelector(".modal")
     // let closeBtn = document.querySelector(".close-btn")
 
-    if (clickEvent.target.id === "modal-btn" || clickEvent.target.id.startsWith("editArticle--")) {
+    if (clickEvent.target.id === "modalButton" || clickEvent.target.id.startsWith("editArticle--")) {
         modal.style.display = "block"
     }
 
@@ -85,7 +85,7 @@ export const ArticleForm = () => {
 
 const render = (action, isShown = false, articleObject = {}) => {
     contentTarget.innerHTML = `    
-        <button id="modal-btn">New Article</button>
+        <button id="modalButton">New Article</button>
         <div class="modal">
             <div class="modal-content">
                 <span id="close-btn" class="close-button">&times;</span> 
@@ -123,7 +123,7 @@ const render = (action, isShown = false, articleObject = {}) => {
 
 eventHub.addEventListener("click", clickEvent => {
 
-    if (clickEvent.target.id === "modal-btn") {
+    if (clickEvent.target.id === "modalButton") {
         render("saveArticle", true,);
     }
 
