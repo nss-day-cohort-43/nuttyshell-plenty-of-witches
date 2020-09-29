@@ -65,3 +65,10 @@ eventHub.addEventListener("click", (event) => {
     addFriend(newFriend);
   }
 });
+
+//render to show list after  loged in
+eventHub.addEventListener("userAuthenticated", (event) => {
+  friendsArray = useFriends();
+  usersArray = useUsers();
+  render(friendsArray, usersArray);
+});
