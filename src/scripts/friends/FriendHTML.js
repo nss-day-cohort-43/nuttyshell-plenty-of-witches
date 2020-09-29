@@ -1,6 +1,6 @@
 export const FriendHTML = (relationshipObj, friendObj) => {
   return `
-  <div id="friendCard--${relationshipObj.id}" class="friendCard">
+  <div id="relationshipCard--${relationshipObj.id}" id="friendCard--${friendObj.id}" class="friendCard">
     <div class="userIcon friendIcon">
       <div>${friendObj.username}</div> 
     </div>

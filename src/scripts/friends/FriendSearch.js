@@ -1,9 +1,16 @@
 import { getUsers, useUsers } from "../users/UserProvider.js";
+import { getFriends, useFriends } from "./FriendsProvider.js";
 
 const eventHub = document.querySelector(".container");
 let userArray = [];
+let friendsArray = [];
 
-getUsers().then(() => (userArray = useUsers()));
+getUsers()
+  .then(getFriends)
+  .then(() => {
+    userArray = useUsers();
+    friendsArray = useFriends();
+  });
 
 //search for friend
 eventHub.addEventListener("keyup", (event) => {
@@ -39,19 +46,21 @@ const friendSearchHTML = (userObj) => {
 };
 
 const getFriendDetail = (theUserObj) => {
-  let button = "button";
-  //collect all friends fron frineds list
-  let friendsObj = document.querySelectorAll('[id^="friendCard"]');
+  let button = "";
+  const currentFriendRelationship = friendsArray.filter(
+    (friend) => friend.userId === parseInt(sessionStorage.getItem("activeUser"))
+  );
 
-  friendsObj.forEach((friend) => {
-    //collect the ids of all frinds in friendlist
-    const [prefix, friendId] = friend.id.split("--");
-    if (theUserObj.id === parseInt(sessionStorage.getItem("activeUser"))) {
-      button = "Self";
-    } else if (parseInt(friendId) === theUserObj.id) {
-      button = `<button id="addFriendBtn--${theUserObj.id}">Add</button>`;
+  currentFriendRelationship.forEach((friend) => {
+    if (
+      friend.userId === parseInt(sessionStorage.getItem("activeUser")) &&
+      friend.userId === theUserObj.id
+    ) {
+      button = "self";
+    } else if (friend.followingId === theUserObj.id) {
+      button = `<button id="deleteFriendBtn--${friend.id}">Delete</button>`;
     } else {
-      button = `<button id="delteFriendBtn--${theUserObj.id}">Delete</button>`;
+      button = `<button id="addFriendBtn--${friend.id}">Add</button>`;
     }
   });
   return button;
