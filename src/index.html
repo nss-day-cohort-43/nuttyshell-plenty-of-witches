@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./styles/main.css" />
-    <title>Document</title>
-  </head>
 
-  <body>
-    <header><img src="../imgs/Icon.png" alt="plenty of witches logo" /></header>
-    <article class="container">
-      <article class="auth">
-        <section class="auth--login"></section>
-        <section class="auth--register"></section>
-      </article>
-      <section id="navBar"></section>
-      <article class="dashboard">
-        <!-- All your Nutshell are belong here -->
-        <section class="messageContainer"></section>
-        <section class="taskContainer"></section>
-        <section class="articleContainer"></section>
-        <section class="friendContainer"></section>
-        <section class="weatherContainer"></section>
-      </article>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="./styles/main.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="modalTarget"></div>
+  <header><img src="../imgs/Icon.png" alt="plenty of witches logo" /></header>
+  <article class="container">
+    <article class="auth">
+      <section class="auth--login"></section>
+      <section class="auth--register"></section>
     </article>
-    <footer>&copy; Plenty of Witches</footer>
-    <script src="./scripts/main.js" type="module"></script>
-  </body>
+    <section id="navBar"></section>
+    <article class="dashboard">
+      <!-- All your Nutshell are belong here -->
+      <section class="messageContainer"></section>
+      <section class="taskContainer"></section>
+
+
+      <section class="articleContainer">
+        <div class="articleArea"></div>
+        <section class="articleFormContainer"></section>
+        <section class="articleListContainer"></section>
+        </div>
+      </section>
+
+
+      <section class="friendContainer"></section>
+
+
+      <!-- **WEATHER** -->
+
+      <section class="weatherContainer">
+        <div class="component__weather-box">
+          <div class="component__weather-content">
+            <div class="weather-content__overview"></div>
+            <div class="weather-content__temp"></div>
+          </div>
+          <div class="component__forecast-box"></div>
+        </div>
+      </section>
+
+    </article>
+  </article>
+  <footer>&copy; Plenty of Witches</footer>
+  <script src="./scripts/main.js" type="module"></script>
+</body>
+
 </html>
