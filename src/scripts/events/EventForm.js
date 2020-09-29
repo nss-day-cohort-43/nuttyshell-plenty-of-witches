@@ -99,22 +99,23 @@ export const renderNewEventForm = () => {
   </div>
   `;
 };
+// this event listener is for a cancel button on the new event form modal.
 eventHub.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.id.includes('--cancelEventButton')) {
-    // modalTarget.style.display = 'none';
     RenderEventList();
   }
 });
 
+// This event listener is for the button that brings up the new form modal.
 eventHub.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.id.includes('--createEventFormButton')) {
     renderNewEventForm();
     const modalTarget = document.querySelector('.newUserEventFormModal');
-    console.log('you hit the modal button');
     return (modalTarget.style.display = 'block');
   }
 });
 
+// This event listener is for the button that saves the new created event. And carries the new data for the created Event to the Api.
 eventHub.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.id.includes('--createEventButton')) {
     const savedUserEventName = document.querySelector(
@@ -150,10 +151,7 @@ eventHub.addEventListener('click', (clickEvent) => {
         eventLocationZip: savedUserEventZip,
         date: savedUserEventDate,
       };
-      saveEvents(newUserEvent)
-        .then(getEvents)
-        .then(renderNewEventForm)
-        .then(RenderEventList);
+      saveEvents(newUserEvent).then(getEvents).then(RenderEventList);
     }
   }
 });
