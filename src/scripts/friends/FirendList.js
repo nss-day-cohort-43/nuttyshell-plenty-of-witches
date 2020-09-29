@@ -43,11 +43,10 @@ const render = (theFriendsArray, theUsersArray) => {
 
 //delete freiend from list
 eventHub.addEventListener("click", (event) => {
-  if (event.target.id.startsWith("delteFriendBtn")) {
+  if (event.target.id.startsWith("deleteFriendBtn")) {
     const [prefix, friendId] = event.target.id.split("--");
-    console.log(friendId);
-    // if (confirm("Are you sure you want to delete this friend?")) {
-    //   deleteFriend(friendId);
-    // }
+    if (confirm("Are you sure you want to delete this friend?")) {
+      deleteFriend(friendId);
+    }
   }
 });
