@@ -1,5 +1,6 @@
 .messageContainer {
   height: 20em;
+  margin-bottom: 10%;
 }
 
 #messageHistory {

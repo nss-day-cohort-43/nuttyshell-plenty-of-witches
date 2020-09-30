@@ -1,90 +1,90 @@
-import { getArticles, useArticles, saveArticle, getSingleArticle, editArticle } from "./ArticleProvider.js";
+import {
+  getArticles,
+  useArticles,
+  saveArticle,
+  getSingleArticle,
+  editArticle,
+} from "./ArticleProvider.js";
 /*
     A bunch of input boxes related to the note information
 */
 const eventHub = document.querySelector(".container");
 const contentTarget = document.querySelector(".articleFormContainer");
 
-eventHub.addEventListener("click", clickEvent => {
-    console.log(clickEvent.target.id);
+eventHub.addEventListener("click", (clickEvent) => {
+  // let modalBtn = document.getElementById("modal-btn")
+  let modal = document.querySelector(".modal");
+  // let closeBtn = document.querySelector(".close-btn")
 
-    // let modalBtn = document.getElementById("modal-btn")
-    let modal = document.querySelector(".modal")
-    // let closeBtn = document.querySelector(".close-btn")
+  if (
+    clickEvent.target.id === "modal-btn" ||
+    clickEvent.target.id.startsWith("editArticle--")
+  ) {
+    modal.style.display = "block";
+  }
 
-    if (clickEvent.target.id === "modal-btn" || clickEvent.target.id.startsWith("editArticle--")) {
-        modal.style.display = "block"
+  if (clickEvent.target.id === "close-btn") {
+    modal.style.display = "none";
+  }
+
+  const articleTitle = document.querySelector("#articleForm--title");
+  const articleContent = document.querySelector("#articleForm--synopsis");
+  const articleURL = document.querySelector("#articleForm--URL");
+
+  if (clickEvent.target.id === "saveArticle") {
+    if (
+      articleTitle.value !== "0" &&
+      articleContent.value !== "0" &&
+      articleURL.value !== "0"
+    ) {
+      const newArticle = {
+        userId: parseInt(sessionStorage.getItem("activeUser")),
+        newsTitle: articleTitle.value,
+        newsContent: articleContent.value,
+        newsURL: articleURL.value,
+        date: Date.now(),
+      };
+      articleTitle.value = "";
+      articleContent.value = "";
+      articleURL.value = "";
+      saveArticle(newArticle);
+      modal.style.display = "none";
+    } else {
+      window.alert("Please Fill Out All Fields");
     }
+  }
 
-    if (clickEvent.target.id === "close-btn") {
-        modal.style.display = "none"
-    }
-
-    const articleTitle = document.querySelector("#articleForm--title")
-    const articleContent = document.querySelector("#articleForm--synopsis")
-    const articleURL = document.querySelector("#articleForm--URL")
-
-    if (clickEvent.target.id === "saveArticle") {
-
-
-        if (articleTitle.value !== "0" && articleContent.value !== "0" && articleURL.value !== "0") {
-            const newArticle = {
-                userId: parseInt(sessionStorage.getItem('activeUser')),
-                newsTitle: articleTitle.value,
-                newsContent: articleContent.value,
-                newsURL: articleURL.value,
-                date: Date.now()
-            }
-            articleTitle.value = "";
-            articleContent.value = "";
-            articleURL.value = "";
-            saveArticle(newArticle);
-            modal.style.display = "none";
-
-
-        } else {
-            window.alert("Please Fill Out All Fields");
-        }
-
-    }
-
-    if (clickEvent.target.id.startsWith("editedArticle")) {
-        console.log("saving edited article")
-        const [prefix, id] = clickEvent.target.id.split("--")
-        const editedArticle = {
-            userId: sessionStorage.getItem('activeUser'),
-            id: id,
-            newsTitle: articleTitle.value,
-            newsContent: articleContent.value,
-            newsURL: articleURL.value,
-            date: Date.now()
-        }
-        articleTitle.value = "";
-        articleContent.value = "";
-        articleURL.value = "";
-        editArticle(editedArticle.id, editedArticle);
-        modal.style.display = "none";
-
-    }
-
-})
-
-
+  if (clickEvent.target.id.startsWith("editedArticle")) {
+    console.log("saving edited article");
+    const [prefix, id] = clickEvent.target.id.split("--");
+    const editedArticle = {
+      userId: sessionStorage.getItem("activeUser"),
+      id: id,
+      newsTitle: articleTitle.value,
+      newsContent: articleContent.value,
+      newsURL: articleURL.value,
+      date: Date.now(),
+    };
+    articleTitle.value = "";
+    articleContent.value = "";
+    articleURL.value = "";
+    editArticle(editedArticle.id, editedArticle);
+    modal.style.display = "none";
+  }
+});
 
 export const ArticleForm = () => {
-    getArticles()
-        .then(() => {
-            render(useArticles());
-        })
+  getArticles().then(() => {
+    render(useArticles());
+  });
+};
 
-}
-
-// action refers to the action of clicking the save or new article buttons; 
+// action refers to the action of clicking the save or new article buttons;
 // isShown is stating that the modal is NOT shown on page load; and articleObject as the 3rd parameter
 // is there for the purpose of fetching the article object by id when the edit button is clicked.
 
 const render = (action, isShown = false, articleObject = {}) => {
-    contentTarget.innerHTML = `    
+  contentTarget.innerHTML = `    
         <button id="modal-btn">New Article</button>
         <div class="modal">
             <div class="modal-content">
@@ -98,40 +98,36 @@ const render = (action, isShown = false, articleObject = {}) => {
             </div>
         </div>        
             		
-    `
-    let modal = document.querySelector(".modal")
-    if (isShown) {
-        modal.style.display = "block"
-    }
+    `;
+  let modal = document.querySelector(".modal");
+  if (isShown) {
+    modal.style.display = "block";
+  }
 
-    const articleTitle = document.querySelector("#articleForm--title")
-    const articleContent = document.querySelector("#articleForm--synopsis")
-    const articleURL = document.querySelector("#articleForm--URL")
+  const articleTitle = document.querySelector("#articleForm--title");
+  const articleContent = document.querySelector("#articleForm--synopsis");
+  const articleURL = document.querySelector("#articleForm--URL");
 
-    articleTitle.value = articleObject.newsTitle;
-    articleContent.value = articleObject.newsContent;
-    articleURL.value = articleObject.newsURL;
+  articleTitle.value = articleObject.newsTitle;
+  articleContent.value = articleObject.newsContent;
+  articleURL.value = articleObject.newsURL;
 
-    if (articleObject.id === undefined) {
-        articleTitle.value = "";
-        articleContent.value = "";
-        articleURL.value = "";
-    }
-}
+  if (articleObject.id === undefined) {
+    articleTitle.value = "";
+    articleContent.value = "";
+    articleURL.value = "";
+  }
+};
 
+eventHub.addEventListener("click", (clickEvent) => {
+  if (clickEvent.target.id === "modal-btn") {
+    render("saveArticle", true);
+  }
 
-
-eventHub.addEventListener("click", clickEvent => {
-
-    if (clickEvent.target.id === "modal-btn") {
-        render("saveArticle", true,);
-    }
-
-    if (clickEvent.target.id.startsWith("editArticle--")) {
-        const [prefix, id] = clickEvent.target.id.split("--")
-        getSingleArticle(id).then((singleArticle) => {
-            render(`editedArticle--${id}`, true, singleArticle);
-        })
-    }
-
-})
+  if (clickEvent.target.id.startsWith("editArticle--")) {
+    const [prefix, id] = clickEvent.target.id.split("--");
+    getSingleArticle(id).then((singleArticle) => {
+      render(`editedArticle--${id}`, true, singleArticle);
+    });
+  }
+});
