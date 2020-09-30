@@ -36,3 +36,17 @@ export const deleteEvent = (eventId) => {
     .then(getEvents)
     .then(dispatchStateChangeEvent);
 };
+
+export const editEvent = (eventObj, eventId) => {
+  return fetch(`http://localhost:8088/events/${eventId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(eventObj),
+  })
+    .then(() => {
+      return getEvents();
+    })
+    .then(dispatchStateChangeEvent);
+};

@@ -1,5 +1,11 @@
-import { getEvents, saveEvents } from './EventDataProvider.js';
+import {
+  editEvent,
+  getEvents,
+  saveEvents,
+  useEvents,
+} from './EventDataProvider.js';
 import { RenderEventList } from './EventList.js';
+import { deleteEvent } from './EventDataProvider.js';
 
 const eventsContainerTarget = document.querySelector('.eventsContainer');
 const modalTarget = document.querySelector('.newUserEventFormModal');
@@ -65,6 +71,8 @@ const stateArray = [
   'Wyoming',
 ];
 
+let EventIdholder;
+
 const renderStateDropDown = (stateArray) => {
   return `${stateArray
     .map((state) => {
@@ -99,6 +107,32 @@ export const renderNewEventForm = () => {
   </div>
   `;
 };
+
+export const renderEditEventForm = () => {
+  // this will render the new event form - so it needs to render a new form with fields for the user to enter
+  eventsContainerTarget.innerHTML = `
+  <div class='newUserEventFormModal'>
+		<div class="newUserEventFormModalContent">
+            <h4>Please enter the name for your event</h4>
+            <input id="newUserEvent--eventName" type="text" placeholder="Enter your event name">
+            <h4>Please enter the city that your event is in</h4>
+            <input id="newUserEvent--eventLocationCity" type="text" placeholder="Enter the events city">
+						<h4>Please enter the state that your event is in</h4>
+						<label for="stateDropDown">State</label>
+						<select name="stateDropDown" id="stateDropDown">
+							<option value="0">Pick a State</option>
+  						${renderStateDropDown(stateArray)}
+						</select>
+            <h4>Please enter the Zip that your event is in</h4>
+            <input id="newUserEvent--eventLocationZip" type="text" placeholder="Enter the events zip code">
+            <h4>Please enter the event's date</h4>
+            <input id="newUserEvent--date" type="date" placeholder="Enter the events date">
+            // <button id="newUserEvent--editEventButton">Edit Event!</button> <button id="newUserEvent--eventDeleteButton--editForm">Delete Event?</button> <button id="newUserEvent--cancelEventButton">Cancel edit?</button>
+    </div>
+  </div>
+  `;
+};
+
 // this event listener is for a cancel button on the new event form modal.
 eventHub.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.id.includes('--cancelEventButton')) {
@@ -112,6 +146,29 @@ eventHub.addEventListener('click', (clickEvent) => {
     renderNewEventForm();
     const modalTarget = document.querySelector('.newUserEventFormModal');
     return (modalTarget.style.display = 'block');
+  }
+});
+
+// This is the edit event button.
+eventHub.addEventListener('click', (clickEvent) => {
+  if (clickEvent.target.id.includes('eventEditButton--')) {
+    const [prefix, selectedEventId] = clickEvent.target.id.split('--');
+    EventIdholder = selectedEventId;
+    renderEditEventForm();
+    const modalTarget = document.querySelector('.newUserEventFormModal');
+    return (modalTarget.style.display = 'block');
+  }
+});
+
+// this is the listener for the delete button on the edit modal
+eventHub.addEventListener('click', (clickEvent) => {
+  if (clickEvent.target.id.includes('eventDeleteButton--editForm')) {
+    deleteEvent(EventIdholder)
+      .then(getEvents)
+      .then((_) => {
+        let updatedEventLogArray = useEvents();
+        RenderEventList(updatedEventLogArray);
+      });
   }
 });
 
@@ -152,6 +209,52 @@ eventHub.addEventListener('click', (clickEvent) => {
         date: savedUserEventDate,
       };
       saveEvents(newUserEvent).then(getEvents).then(RenderEventList);
+    }
+  }
+});
+
+// edit button function
+eventHub.addEventListener('click', (clickEvent) => {
+  if (clickEvent.target.id.includes('--editEventButton')) {
+    const savedUserEventName = document.querySelector(
+      '#newUserEvent--eventName'
+    ).value;
+    const savedUserEventCity = document.querySelector(
+      '#newUserEvent--eventLocationCity'
+    ).value;
+    const savedUserEventState = document.querySelector('#stateDropDown').value;
+    const savedUserEventZip = document.querySelector(
+      '#newUserEvent--eventLocationZip'
+    ).value;
+    const savedUserEventDate = Date.parse(
+      document.querySelector('#newUserEvent--date').value
+    );
+    const savedLoggedInUserId = sessionStorage.getItem('activeUser');
+
+    const savedEventIdForEdit = EventIdholder;
+
+    if (
+      savedUserEventName === '' ||
+      savedUserEventCity === '' ||
+      savedUserEventState === '0' ||
+      savedUserEventZip === '' ||
+      savedUserEventZip.length !== 5 ||
+      savedUserEventDate === ''
+    ) {
+      window.alert('Yo fill out yo shit witch');
+    } else {
+      let newUserEvent = {
+        userId: savedLoggedInUserId,
+        eventName: savedUserEventName,
+        eventLocationCity: savedUserEventCity,
+        eventLocationState: savedUserEventState,
+        eventLocationZip: savedUserEventZip,
+        date: savedUserEventDate,
+        id: savedEventIdForEdit,
+      };
+      editEvent(newUserEvent, savedEventIdForEdit)
+        .then(getEvents)
+        .then(RenderEventList);
     }
   }
 });

@@ -1,8 +1,5 @@
 import { LoginForm } from './auth/LoginForm.js';
 import { RegisterForm } from './auth/RegisterForm.js';
-import { getEvents, useEvents } from './events/EventDataProvider.js';
-import { renderNewEventForm } from './events/EventForm.js';
-import { RenderEventList, loadEvents } from './events/EventList.js';
 import { Nutshell } from './Nutshell.js';
 import { ArticleForm } from './articles/ArticleForm.js';
 import { ArticleList } from './articles/ArticleList.js';

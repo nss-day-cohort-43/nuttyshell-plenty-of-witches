@@ -17,7 +17,7 @@ export const eventCardRender = (eventObj) => {
       <button class="eventWeatherButton" id="eventWeatherButton--${
         eventObj.id
       }">Weather?</button>
-      ${deleteButtonLogic(eventObj)}
+      ${editButtonLogic(eventObj)}
       </div>`;
 };
 // This function creates the first event card in the event container - Making it easier to see how things work. It takes an Event object as a param.
@@ -34,32 +34,32 @@ export const firstEventCardRender = (eventObj) => {
       <button class="eventWeatherButton" id="eventWeatherButton--${
         eventObj.id
       }">Weather?</button>
-      ${deleteButtonLogic(eventObj)}
+      ${editButtonLogic(eventObj)}
       </div>`;
 };
 
 // This will render the cards for the events. Which we need to figure out how we're handling the dates within this string I'm running
 // into timing issues.
 
-eventHub.addEventListener('click', (clickEvent) => {
-  if (clickEvent.target.id.includes('eventDeleteButton--')) {
-    const [prefix, selectedEventId] = clickEvent.target.id.split('--');
-    deleteEvent(selectedEventId)
-      .then(getEvents)
-      .then((_) => {
-        let updatedEventLogArray = useEvents();
-        RenderEventList(updatedEventLogArray);
-      });
-  }
-});
+// eventHub.addEventListener('click', (clickEvent) => {
+//   if (clickEvent.target.id.includes('eventDeleteButton--')) {
+//     const [prefix, selectedEventId] = clickEvent.target.id.split('--');
+//     deleteEvent(selectedEventId)
+//       .then(getEvents)
+//       .then((_) => {
+//         let updatedEventLogArray = useEvents();
+//         RenderEventList(updatedEventLogArray);
+//       });
+//   }
+// });
 
 // this checks to see if the current user that's logged in owns an event. And if the active user does, it will render the delete button on their events allowing them to edit them.
-const deleteButtonLogic = (eventObj) => {
+const editButtonLogic = (eventObj) => {
   if (
     parseInt(eventObj.user.id) ===
     parseInt(sessionStorage.getItem('activeUser'))
   ) {
-    return `<button class="eventDeleteButton" id="eventDeleteButton--${eventObj.id}" class="eventDeleteButton">Delete your Event?</button>`;
+    return `<button class="eventDeleteButton" id="eventEditButton--${eventObj.id}">Edit your Event?</button>`;
   } else {
     return "<p>This isn't your event</p>";
   }
